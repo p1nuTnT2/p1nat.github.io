@@ -1,21 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/12/27/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>Nmap的常用命令</title>
+    <url>/2021/12/26/Nmap%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ul>
+<li><code>nmap -sS ip -p port</code> 只发送Syn半连接扫描</li>
+<li><code>nmap -sV ip -p port</code> 扫描目标端口下的服务</li>
+<li><code>nmap -sT ip -p port</code> tcp全连接扫描</li>
+<li><code>nmap -O ip -p port</code> 扫描目标操作系统</li>
+<li><code>nmap -sP ip/24</code> 内网扫描</li>
+<li><code>-v</code> 详细显示</li>
+<li><code>-il</code> 用列表文件 扫描</li>
+<li><code>-iR 数量</code> 随机ip扫描</li>
+<li><code>-sL</code> 把目标地址段列出来</li>
+<li><code>-sn</code> 不做端口扫描</li>
+<li><code>-Pn</code> 不管有没有回包，都继续扫描</li>
+<li><code>-PS/PA/PU/PY</code> SYN/ACK/UDP/SCTP</li>
+<li><code>-sU</code> upd扫描</li>
+<li><code>-sN</code><span id="more"></span></li>
+</ul>
+<hr>
+<ul>
+<li>nmap扫描脚本<ul>
+<li>400+</li>
+<li>分类</li>
+</ul>
+</li>
+<li><code>cat /usr/share/nmap/scripts/script.db</code></li>
+<li><code>grep vuln /usr/share/nmap/scripts/script.db | cut -d &quot;\&#39;&quot;&#39; -f 2</code></li>
+<li><code>cat /usr/share/nmap/scripts/smb-check-vulns.nse</code></li>
+<li>smb-check-vulns.nse<ul>
+<li><code>nmap -sU -sS --script=smb-check-vulns.nse --script-args=unsafe=1 -p U:137,T:139,445 1.1.1.1</code></li>
+<li><code>MS08-067</code></li>
+</ul>
+</li>
+<li>smb-vuln-ms10-061.nse<ul>
+<li>Stuxnet蠕虫利用的4个漏洞之一</li>
+<li>Print Spooler权限不当，打印请求可在系统目录可创建文件、执行任意代码</li>
+<li>LANMAN API 枚举 共享打印机</li>
+<li>远程打印机名称</li>
+<li>smb-enum-shares枚举共享<ul>
+<li>身份认证参数——smbuser、smbpassword</li>
+<li>nmap -p445 –script=smb-enum-shares.nse –script-args=smbuser=admin,smbpassword=pass 1.1.1.1</li>
+<li>Windows XP,Server 2003 SP2, Vista,Server 2008, Win7</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>影响扫描结果的因素</li>
+</ul>
+<hr>
+<h2 id="扫描结果确认"><a href="#扫描结果确认" class="headerlink" title="扫描结果确认"></a>扫描结果确认</h2><ul>
+<li>目标系统版本</li>
+<li>补丁是否安装</li>
+<li>是否可被入侵</li>
+</ul>
+<ul>
+<li>有时很难说什么才是准确的扫描结果</li>
+<li>应综合的看待漏洞威胁</li>
+</ul>
 ]]></content>
+      <categories>
+        <category>扫描技术</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+        <tag>扫描技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何将你的内网端口映射到公网——frp</title>
+    <url>/2021/12/27/%E5%9F%BA%E4%BA%8Efrp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<h1 id="基于frp实现内网穿透"><a href="#基于frp实现内网穿透" class="headerlink" title="基于frp实现内网穿透"></a>基于frp实现内网穿透</h1><h2 id="frp下载地址"><a href="#frp下载地址" class="headerlink" title="frp下载地址"></a>frp下载地址</h2><p><a href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><ol>
+<li>需要公网服务器</li>
+<li>公网服务器和内网服务器都需要下载frp安装</li>
+</ol>
+<hr>
+<ol>
+<li>服务端配置(frps-公网)<ul>
+<li>首先删除关于<code>frpc</code> 的所有文件</li>
+<li>然后编辑<code>frps.ini</code><br><code>vim ./frps.ini</code><br><a href="https://imgtu.com/i/TBZalT"><img src="https://s4.ax1x.com/2021/12/27/TBZalT.png" alt="TBZalT.png"></a></li>
+<li>打开防火墙7000端口（c/s通信）和6000端口（映射的内网 22端口）<span id="more"></span></li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol>
+<li><p>客户端配置(frpc-内网)</p>
+<ul>
+<li><p>首先删除关于<code>frps</code>的所有文件</p>
+</li>
+<li><p>然后编辑<code>frpc.ini</code><br><code>vim ./frpc.ini</code></p>
+<pre><code class="Bash">[common]
+server_addr = 120.56.37.48   #公网服务器ip
+server_port = 7000            #与服务端bind_port一致
+ 
+#公网通过ssh访问内部服务器
+[ssh]
+type = tcp              #连接协议 tcp或udp
+local_ip = 127.0.0.1 #内网服务器ip
+local_port = 22         #ssh默认端口号
+remote_port = 6000      #自定义的访问内部ssh端口号
+ 
+#公网访问内部web服务器以http方式
+[web]
+type = http         #访问协议
+local_port = 8081   #内网web服务的端口号
+custom_domains = www.p1nat.xyz   #所绑定的公网服务器域名，一级、二级域名都可以
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="访问方式"><a href="#访问方式" class="headerlink" title="访问方式"></a>访问方式</h2><table>
+<thead>
+<tr>
+<th>1</th>
+<th>ip</th>
+<th>port</th>
+<th>username</th>
+<th>password</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>domains</td>
+<td>port</td>
+<td>username</td>
+<td>password</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h2><h3 id="连接一会后自动断开"><a href="#连接一会后自动断开" class="headerlink" title="连接一会后自动断开"></a>连接一会后自动断开</h3><p>解决方法：以服务的形式在后台运行</p>
+<ol>
+<li><p>服务端创建服务(frps)</p>
+<ul>
+<li><p><code>vim /lib/systemd/system/frps.service</code></p>
+<pre><code class="Bash">[Unit]
+Description=frps service
+After=network.target syslog.target
+Wants=network.target
+
+[Service]
+Type=simple
+#启动服务的命令
+ExecStart=/存放frp的目录/frps -c /存放frp的目录/frps.ini
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<pre><code class="Bash">启动服务 systemctl start frps
+开机自启动 systemctl enable frps
+重启服务 systemctl restart frps
+停止服务 systemctl stop frps
+查看日志与状态 systemctl status frps
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol>
+<li><p>客户端创建服务(frpc)</p>
+<ul>
+<li><p><code>vim /lib/systemd/system/frpc.service</code></p>
+<pre><code class="Bash">[Unit]
+Description=fraps service
+#After=network.target syslog.target 等待网络服务启动完成后再启动frpc服务，但是开机自动启动失败，报错
+After=multi-user.target
+Wants=network.target
+
+[Service]
+Type=simple
+#启动服务的命令
+ExecStart=/存放frp的目录/frpc -c /存放frp的目录/frpc.ini
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<pre><code class="Bash">启动服务 systemctl start frpc
+开机自启动 systemctl enable frpc
+重启服务 systemctl restart frpc
+停止服务 systemctl stop frpc
+查看日志与状态 systemctl status frpc
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="笔记本盒盖后休眠"><a href="#笔记本盒盖后休眠" class="headerlink" title="笔记本盒盖后休眠"></a>笔记本盒盖后休眠</h2><ol>
+<li><p>找到CentOS下对应配置文件</p>
+<ul>
+<li><code>vim /etc/systemd/logind.conf</code></li>
+</ul>
+</li>
+<li><p>修改配置</p>
+<pre><code class="Bash">HandlePowerKey 按下电源键后的行为，默认power off
+HandleSleepKey 按下挂起键后的行为，默认suspend
+HandleHibernateKey 按下休眠键后的行为，默认hibernate
+HandleLidSwitch 合上笔记本盖后的行为，默认suspend
+</code></pre>
+<p>把<code>HandleLidSwitch</code>后面的<code>suspend</code>修改为<code>lock</code>，即：<br><code>HandleLidSwitch=lock</code><br>ps:如果配置项前面有**#号，要删掉，#是注释**的意思</p>
+</li>
+<li><p>应用生效</p>
+<ul>
+<li><code>systemctl restart systemd-logind</code></li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>渗透的实验环境搭建</title>
+    <url>/2021/12/27/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ul>
+<li>微软最新版软件<br>  <a href="http://msdn.microsoft.com/en-ca/subscriptions/aa336858">http://msdn.microsoft.com/en-ca/subscriptions/aa336858</a></li>
+<li>虚拟机系统<ul>
+<li>windows平台<ul>
+<li>xp</li>
+<li>win7</li>
+<li>2003</li>
+</ul>
+</li>
+<li>Linux平台<ul>
+<li><a href="http://www.turnkeylinux.org/">http://www.turnkeylinux.org</a></li>
+<li>Ubuntu<ul>
+<li>Lamp安装</li>
+</ul>
+</li>
+<li>Metasploitable2<ul>
+<li><a href="http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip">http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip</a></li>
+<li><code>msfadmin</code> 默认账号和密码<br>  <a href="https://imgtu.com/i/TBnwX8"><img src="https://s4.ax1x.com/2021/12/27/TBnwX8.png" alt="TBnwX8.png"></a></li>
+<li>问题: <code>/var/www/mutillidae/config.inc</code><ul>
+<li><code>sudo vim /var/www/mutillidae/config.inc</code></li>
+<li><code>dbname=owasp10</code> 修改数据库连接<br>  <a href="https://imgtu.com/i/TBnETJ"><img src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></a><span id="more"></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="模拟真实网络"><a href="#模拟真实网络" class="headerlink" title="模拟真实网络"></a>模拟真实网络</h2><ul>
+<li>vm添加3块虚拟网卡</li>
+<li>vm 添加两个虚拟网络（仅主机）不启用dhcp<br>  <a href="https://imgtu.com/i/TBnAw4"><img src="https://s4.ax1x.com/2021/12/27/TBnAw4.png" alt="TBnAw4.png"></a></li>
+<li><code>M0n0wall</code> 防火墙<ul>
+<li><a href="http://m0n0.ch/wall/downloads.php">http://m0n0.ch/wall/downloads.php</a><br>  <a href="https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso">https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso</a><br>  <a href="https://imgtu.com/i/TBneYR"><img src="https://s4.ax1x.com/2021/12/27/TBneYR.png" alt="TBneYR.png"></a></li>
+<li>体积非常小，甚至可以装在<code>arm</code>架构的机器里当作企业的真实防火墙</li>
+<li>学习研究可以装在树莓里</li>
+<li>安装<br>  vm 网络设置如图 启用前3块<br>  <a href="https://imgtu.com/i/TBnkmF"><img src="https://s4.ax1x.com/2021/12/27/TBnkmF.png" alt="TBnkmF.png"></a><br>  <a href="https://imgtu.com/i/TBnPyT"><img src="https://s4.ax1x.com/2021/12/27/TBnPyT.png" alt="TBnPyT.png"></a><br>  <a href="https://imgtu.com/i/TBnZk9"><img src="https://s4.ax1x.com/2021/12/27/TBnZk9.png" alt="TBnZk9.png"></a>  <a href="https://imgtu.com/i/TBnmf1"><img src="https://s4.ax1x.com/2021/12/27/TBnmf1.png" alt="TBnmf1.png"></a><br>  第二次断开硬盘<br>  <a href="https://imgtu.com/i/TBnuSx"><img src="https://s4.ax1x.com/2021/12/27/TBnuSx.png" alt="TBnuSx.png"></a>  <a href="https://imgtu.com/i/TBnKl6"><img src="https://s4.ax1x.com/2021/12/27/TBnKl6.png" alt="TBnKl6.png"></a><br>  <a href="https://imgtu.com/i/TBnM6K"><img src="https://s4.ax1x.com/2021/12/27/TBnM6K.png" alt="TBnM6K.png"></a>  <a href="https://imgtu.com/i/TBn1mD"><img src="https://s4.ax1x.com/2021/12/27/TBn1mD.png" alt="TBn1mD.png"></a><br>  设置 <code>LAN</code> 口，<code>WAN</code> 口<br>  <a href="https://imgtu.com/i/TBnQOO"><img src="https://s4.ax1x.com/2021/12/27/TBnQOO.png" alt="TBnQOO.png"></a><br>  <a href="https://imgtu.com/i/TBn30e"><img src="https://s4.ax1x.com/2021/12/27/TBn30e.png" alt="TBn30e.png"></a><br>  配置好后 y 自动重启<br>  配置 ip 根据  vm虚拟网络设置配置<br>  <a href="https://imgtu.com/i/TBnJkd"><img src="https://s4.ax1x.com/2021/12/27/TBnJkd.png" alt="TBnJkd.png"></a><br>  接下来重新设置<code>web</code> 登录的密码<br>  <a href="https://imgtu.com/i/TBnYtA"><img src="https://s4.ax1x.com/2021/12/27/TBnYtA.png" alt="TBnYtA.png"></a><br>  配置好 打开浏览器访问<br>  <a href="https://imgtu.com/i/TBn8TH"><img src="https://s4.ax1x.com/2021/12/27/TBn8TH.png" alt="TBn8TH.png"></a><br>  登陆进去首先配置<code>OPT1</code> 接口<br>  IP地址是根据，第二个网卡来配置的<br>  保存<br>  <a href="https://imgtu.com/i/TBntfI"><img src="https://s4.ax1x.com/2021/12/27/TBntfI.png" alt="TBntfI.png"></a><br>  配置防火墙 规则<br>  <a href="https://imgtu.com/i/TBnUpt"><img src="https://s4.ax1x.com/2021/12/27/TBnUpt.md.png" alt="TBnUpt.md.png"></a>  <a href="https://imgtu.com/i/TBna1P"><img src="https://s4.ax1x.com/2021/12/27/TBna1P.png" alt="TBna1P.png"></a><br>  配置<code>WAN</code> 口<pre><code>  [![TBnd6f.png](https://s4.ax1x.com/2021/12/27/TBnd6f.png)](https://imgtu.com/i/TBnd6f)
+</code></pre>
+</li>
+</ul>
+</li>
+<li>背靠背防火墙<ul>
+<li><code>Pfsense</code> <ul>
+<li><a href="https://pfsense.org/">https://pfsense.org/</a><br><a href="https://imgtu.com/i/TBnD0g"><img src="https://s4.ax1x.com/2021/12/27/TBnD0g.png" alt="TBnD0g.png"></a></li>
+<li>安装和 <code>m0n0wall</code> 类似</li>
+<li>属于高安全防护的企业防火墙架构</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>渗透</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>缓冲区溢出</title>
+    <url>/2021/12/26/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/</url>
+    <content><![CDATA[<h1 id="缓冲区溢出"><a href="#缓冲区溢出" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h1><h2 id="程序漏洞从哪里来"><a href="#程序漏洞从哪里来" class="headerlink" title="程序漏洞从哪里来"></a>程序漏洞从哪里来</h2><ul>
+<li>罪恶的根源: 变量</li>
+<li>数据与代码边界不清</li>
+<li>最简漏洞原理 —— shell脚本漏洞</li>
+</ul>
+<hr>
+<h2 id="缓冲区溢出-1"><a href="#缓冲区溢出-1" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h2><ul>
+<li>当缓冲区边界限制不严格时，由于变量传入畸形数据或程序运行错误，导致缓冲区被”撑爆”,从而掩盖了相邻内存区域的数据</li>
+<li>成功修改内存数据，可造成进程劫持，执行恶意代码，获取服务器控制权等后果</li>
+</ul>
+<hr>
+<span id="more"></span>
+<h2 id="如何发现漏洞"><a href="#如何发现漏洞" class="headerlink" title="如何发现漏洞"></a>如何发现漏洞</h2><ul>
+<li>源码审计</li>
+<li>逆向工程</li>
+<li>模糊测试<ul>
+<li>向层序堆栈半随机的数据，根据内存变化判断溢出</li>
+<li>数据生成器：生成随机、半随机数据</li>
+<li>测试工具：识别溢出漏洞</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Fuzzer"><a href="#Fuzzer" class="headerlink" title="Fuzzer"></a>Fuzzer</h2><ul>
+<li>SLMail 5.5.0 Mail server</li>
+<li>ImmunityDebugger_1_85_setup.exe</li>
+<li>mona.py</li>
+</ul>
+<hr>
+<h2 id="漏洞利用后阶段"><a href="#漏洞利用后阶段" class="headerlink" title="漏洞利用后阶段"></a>漏洞利用后阶段</h2><ul>
+<li>上传工具</li>
+<li>提权</li>
+<li>擦除攻击痕迹</li>
+<li>安装后门<ul>
+<li>长期控制</li>
+<li>Dump密码</li>
+<li>内网渗透</li>
+</ul>
+</li>
+<li>后漏洞利用阶段<ul>
+<li>最大的挑战——防病毒软件</li>
+<li>使用合法的远程控制软件</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="上传工具"><a href="#上传工具" class="headerlink" title="上传工具"></a>上传工具</h2><ul>
+<li>上传文件<ul>
+<li>持久控制</li>
+<li>扩大对目标系统的控制能力</li>
+</ul>
+</li>
+<li>Linux系统<ul>
+<li>netcat</li>
+<li>curl</li>
+<li>wget</li>
+</ul>
+</li>
+<li>Windows<ul>
+<li>缺少预装的下载工具</li>
+</ul>
+</li>
+<li>类非交互模式shell<ul>
+<li>类NC远程控制shell</li>
+<li>ftp 192.168.1.1</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>二进制安全</category>
+      </categories>
+      <tags>
+        <tag>二进制安全</tag>
+      </tags>
   </entry>
 </search>
