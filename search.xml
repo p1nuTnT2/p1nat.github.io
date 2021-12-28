@@ -27,7 +27,7 @@
 </ul>
 </li>
 <li><code>cat /usr/share/nmap/scripts/script.db</code></li>
-<li><code>grep vuln /usr/share/nmap/scripts/script.db | cut -d &quot;\&#39;&quot;&#39; -f 2</code></li>
+<li><code>grep vuln /usr/share/nmap/scripts/script.db | cut -d "\'"' -f 2</code></li>
 <li><code>cat /usr/share/nmap/scripts/smb-check-vulns.nse</code></li>
 <li>smb-check-vulns.nse<ul>
 <li><code>nmap -sU -sS --script=smb-check-vulns.nse --script-args=unsafe=1 -p U:137,T:139,445 1.1.1.1</code></li>
