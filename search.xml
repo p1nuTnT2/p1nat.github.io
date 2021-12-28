@@ -6,7 +6,7 @@
     <content><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ul>
 <li><code>nmap -sS ip -p port</code> 只发送Syn半连接扫描</li>
 <li><code>nmap -sV ip -p port</code> 扫描目标端口下的服务</li>
-<li><code>nmap -sT ip -p port</code> tcp全连接扫描</li>
+<li><code>nmap -sT ip -p port</code> tcp全连接扫描<span id="more"></span></li>
 <li><code>nmap -O ip -p port</code> 扫描目标操作系统</li>
 <li><code>nmap -sP ip/24</code> 内网扫描</li>
 <li><code>-v</code> 详细显示</li>
@@ -17,7 +17,7 @@
 <li><code>-Pn</code> 不管有没有回包，都继续扫描</li>
 <li><code>-PS/PA/PU/PY</code> SYN/ACK/UDP/SCTP</li>
 <li><code>-sU</code> upd扫描</li>
-<li><code>-sN</code><span id="more"></span></li>
+<li><code>-sN</code></li>
 </ul>
 <hr>
 <ul>
@@ -74,14 +74,14 @@
     <content><![CDATA[<h1 id="基于frp实现内网穿透"><a href="#基于frp实现内网穿透" class="headerlink" title="基于frp实现内网穿透"></a>基于frp实现内网穿透</h1><h2 id="frp下载地址"><a href="#frp下载地址" class="headerlink" title="frp下载地址"></a>frp下载地址</h2><p><a href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
 <h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><ol>
 <li>需要公网服务器</li>
-<li>公网服务器和内网服务器都需要下载frp安装</li>
+<li>公网服务器和内网服务器都需要下载frp安装<span id="more"></span></li>
 </ol>
 <hr>
 <ol>
 <li>服务端配置(frps-公网)<ul>
 <li>首先删除关于<code>frpc</code> 的所有文件</li>
 <li>然后编辑<code>frps.ini</code><br><code>vim ./frps.ini</code><br><a href="https://imgtu.com/i/TBZalT"><img src="https://s4.ax1x.com/2021/12/27/TBZalT.png" alt="TBZalT.png"></a></li>
-<li>打开防火墙7000端口（c/s通信）和6000端口（映射的内网 22端口）<span id="more"></span></li>
+<li>打开防火墙7000端口（c/s通信）和6000端口（映射的内网 22端口）</li>
 </ul>
 </li>
 </ol>
@@ -224,7 +224,8 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
     <url>/2021/12/27/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ul>
 <li>微软最新版软件<br>  <a href="http://msdn.microsoft.com/en-ca/subscriptions/aa336858">http://msdn.microsoft.com/en-ca/subscriptions/aa336858</a></li>
-<li>虚拟机系统<ul>
+<li>虚拟机系统<span id="more"></span>
+<ul>
 <li>windows平台<ul>
 <li>xp</li>
 <li>win7</li>
@@ -242,7 +243,7 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 <li><code>msfadmin</code> 默认账号和密码<br>  <a href="https://imgtu.com/i/TBnwX8"><img src="https://s4.ax1x.com/2021/12/27/TBnwX8.png" alt="TBnwX8.png"></a></li>
 <li>问题: <code>/var/www/mutillidae/config.inc</code><ul>
 <li><code>sudo vim /var/www/mutillidae/config.inc</code></li>
-<li><code>dbname=owasp10</code> 修改数据库连接<br>  <a href="https://imgtu.com/i/TBnETJ"><img src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></a><span id="more"></span></li>
+<li><code>dbname=owasp10</code> 修改数据库连接<br>  <a href="https://imgtu.com/i/TBnETJ"><img src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></a></li>
 </ul>
 </li>
 </ul>
@@ -289,7 +290,7 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
     <content><![CDATA[<h1 id="缓冲区溢出"><a href="#缓冲区溢出" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h1><h2 id="程序漏洞从哪里来"><a href="#程序漏洞从哪里来" class="headerlink" title="程序漏洞从哪里来"></a>程序漏洞从哪里来</h2><ul>
 <li>罪恶的根源: 变量</li>
 <li>数据与代码边界不清</li>
-<li>最简漏洞原理 —— shell脚本漏洞</li>
+<li>最简漏洞原理 —— shell脚本漏洞<span id="more"></span></li>
 </ul>
 <hr>
 <h2 id="缓冲区溢出-1"><a href="#缓冲区溢出-1" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h2><ul>
@@ -297,7 +298,6 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 <li>成功修改内存数据，可造成进程劫持，执行恶意代码，获取服务器控制权等后果</li>
 </ul>
 <hr>
-<span id="more"></span>
 <h2 id="如何发现漏洞"><a href="#如何发现漏洞" class="headerlink" title="如何发现漏洞"></a>如何发现漏洞</h2><ul>
 <li>源码审计</li>
 <li>逆向工程</li>
