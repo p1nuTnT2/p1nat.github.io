@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>关于DNS</title>
+    <url>/2021/12/28/DNS/</url>
+    <content><![CDATA[<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><h2 id="什么是DNS？"><a href="#什么是DNS？" class="headerlink" title="什么是DNS？"></a>什么是DNS？</h2><p>DNS 是域名系统 (Domain Name System) 的缩写，它是由解析器和域名服务器组成的。域名服务器是指保存有该网络中所有主机的域名和对应IP地址，并具有将域名转换为IP地址功能的服务器。其中域名必须对应一个IP地址，而IP地址不一定有域名。</p>
+<span id="more"></span>
+<p>域名系统（英文：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS使用TCP和UDP端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。</p>
+<hr>
+<h2 id="本地HOSTS与DNS的关系？"><a href="#本地HOSTS与DNS的关系？" class="headerlink" title="本地HOSTS与DNS的关系？"></a>本地HOSTS与DNS的关系？</h2><p><strong>DNS</strong>：Domain Name System域名系统</p>
+<p>客户端查询DNS的过程是：</p>
+<blockquote>
+<p>本地host文件—本地缓存—-DNS服务器</p>
+</blockquote>
+<p><strong>Ｈost文件</strong>用于本地DNS解析，并且优先于寻找网络上的DNS服务器</p>
+<blockquote>
+<p>在Windows中，它的目录通常在[Windows目录]\system32\drivers\etc\下。</p>
+</blockquote>
+<p>Hosts文件是一个纯文本文件，用记事本就可以将其打开。这个文件是根据TCP/IP for Windows 的标准来工作的，它的作用是包含IP地址和Host name(主机名)的映射关系，每段只能包括一个映射关系，IP地址要放在每段的最前面，后面写Host name(主机名)，中间加个空格。如：<code>127.0.0.1 localhost</code>.</p>
+<p>我们知道，当电脑访问网站时，首先通过DNS服务器把网络 <a href="https://cloud.tencent.com/product/cns?from=10680">域名解析</a>成IP地址后，我们的计算机才能访问。如果每个域名请求都要等待域名服务器解析后返回IP，访问速度就会比较慢，而Hosts文件正可以解决这个 问题。在进行DNS请求以前，Windows系统会先检查Hosts文件中是否有这个地址映射关系，如果有则调用这个IP地址映射，如果没有再向DNS服 务器提出域名解析。</p>
+<p>对于要经常访问的网站，我们可以通过在Hosts中配置域名和IP的映射关系，这样当我们输入域名计算机就能很快解析出IP，而不用请求网络上的DNS服务器。</p>
+<p>如果某个网站带有恶意木马或者病毒，你完全可以将其屏蔽掉，只写上IP地址，而不写上域名，</p>
+<p><strong>区别</strong>：</p>
+<blockquote>
+<p>hosts速度快，不依赖网络，不用担心DNS服务器挂了，仅本地有效。</p>
+</blockquote>
+<blockquote>
+<p>DNS集中管理，集中转发，区域有效。</p>
+</blockquote>
+<hr>
+<h2 id="CDN是什么？与DNS的关系？"><a href="#CDN是什么？与DNS的关系？" class="headerlink" title="CDN是什么？与DNS的关系？"></a>CDN是什么？与DNS的关系？</h2><ol>
+<li>cdn全称是内容分发网络。其目的是让用户能够更快速的得到请求的数据。简单来讲，cdn就是用来加速的，他能让用户就近访问数据，这样就更更快的获取到需要的数据。举个例子，现在服务器在北京，深圳的用户想要获取服务器上的数据就需要跨越一个很远的距离，这显然就比北京的用户访问北京的服务器速度要慢。但是现在我们在深圳建立一个cdn服务器，上面缓存住一些数据，深圳用户访问时先访问这个cdn服务器，如果服务器上有用户请求的数据就可以直接返回，这样速度就大大的提升了。</li>
+<li>刚才说到cdn实际上是一个就近访问，那么现在有一个问题是，我们怎么知道用户的所在位置从而给他分配最佳的cdn节点呢。这就需要dns服务来进行定位了。当我们通过使用dns服务的时候，可以根据他使用的LDNS服务器来进行一个定位，例如我们的调度服务器看到他是来自深圳电信的LDNS服务器，那么我们就认为该用户来自深圳电信，然后调度服务器可以让该用户去访问深圳电信的CDN服务器，这样就让用户访问到了最优的cdn节点。通过dns服务我们可以很快的定位到用户的位置，然后给用户分配最佳cdn节点，但是这种调度方式存在一个问题，例如，当我 是北京联通的用户但是使用的却是深圳电信的ldns的话，调度服务器会给我分配到深圳电信的cdn服务器，这样就产生了错误的调度。</li>
+</ol>
+<hr>
+<h2 id="常见的DNS安全攻击有哪些？"><a href="#常见的DNS安全攻击有哪些？" class="headerlink" title="常见的DNS安全攻击有哪些？"></a>常见的DNS安全攻击有哪些？</h2><ol>
+<li>缓存投毒<br> 通常也称为域名系统投毒或DNS缓存投毒。它是利用虚假Internet地址替换掉域名系统表中的地址，进而制造破坏。当网络用户在带有该虚假地址的页面中进行搜寻，以访问某链接时，网页浏览器由于受到该虚假条目的影响而打开了不同的网页链接。在这种情况下，蠕虫、木马、浏览器劫持等恶意软件就可能会被下载到本地用户的电脑上。</li>
+<li>DNS劫持<br> DNS劫持又称域名劫持，是指在劫持的网络范围内拦截域名解析的请求，分析请求的域名，把审查范围以外的请求放行，否则返回假的IP地址或者什么都不做使请求失去响应，其效果就是对特定的网络不能访问或访问的是假网址。这类攻击一般通过恶意软件来更改终端用户TCP/IP设置，将用户指向恶意DNS服务器，该DNS服务器会对域名进行解析，并最终指向钓鱼网站等被攻击者操控的服务器。</li>
+<li>DNS DDoS攻击<br> 针对DNS的DDoS攻击通过控制大批僵尸网络利用真实DNS协议栈发起大量域名查询请求，利用工具软件伪造源IP发送海量DNS查询，发送海量DNS查询报文导致网络带宽耗尽而无法传送正常DNS查询请求。发送大量非法域名查询报文引起DNS服务器持续进行迭代查询，从而达到较少的攻击流量消耗大量服务器资源的目的。</li>
+<li>反射式DNS放大攻击<br> 所有放大攻击都利用了攻击者和目标Web资源之间的带宽消耗差异，由于每个机器人都要求使用欺骗性IP地址打开DNS解析器，该IP地址已更改为目标受害者的真实源IP地址，然后目标会从DNS解析器接收响应。为了创建大量流量，攻击者以尽可能从DNS解析器生成响应的方式构造请求。结果，目标接收到攻击者初始流量的放大，并且他们的网络被虚假流量阻塞，导致拒绝服务。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Intruder模块爆破密码</title>
+    <url>/2021/12/28/Intruder%E7%88%86%E7%A0%B4%E5%AF%86%E7%A0%81/</url>
+    <content><![CDATA[<h1 id="Intruder爆破密码"><a href="#Intruder爆破密码" class="headerlink" title="Intruder爆破密码"></a>Intruder爆破密码</h1><ol>
+<li>先通过<code>proxy</code>抓包发送数据<span id="more"></span></li>
+<li><code>Postitions</code><ul>
+<li>根据业务选择<code>Attack type</code><br>  <a href="https://imgtu.com/i/Tsi7RK"><img data-src="https://s4.ax1x.com/2021/12/28/Tsi7RK.png" alt="Tsi7RK.png"></a></li>
+<li>设置变量<br>  <a href="https://imgtu.com/i/TsiHxO"><img data-src="https://s4.ax1x.com/2021/12/28/TsiHxO.png" alt="TsiHxO.png"></a></li>
+</ul>
+</li>
+<li><code>Payloads</code><ul>
+<li><code>Payload set</code> 选择变量</li>
+<li><code>Payload type</code> 设置类型（常用<code>Runtime file</code> 写入字典）<br>  <a href="https://imgtu.com/i/TsiLse"><img data-src="https://s4.ax1x.com/2021/12/28/TsiLse.png" alt="TsiLse.png"></a></li>
+</ul>
+</li>
+<li><code>Options</code> <ul>
+<li><code>Grep - Match</code> （可选）设置字符串匹配验证是否爆破成功<br>  <a href="https://imgtu.com/i/TsijZd"><img data-src="https://s4.ax1x.com/2021/12/28/TsijZd.png" alt="TsijZd.png"></a></li>
+</ul>
+</li>
+<li><code>Start attack</code> 开始爆破<ul>
+<li>可以通过 <code>Grep - Match</code> 设置的字符串匹配查看结果</li>
+<li>或者通过<code>Length</code> 查看返回长度区分是否成功<br>  <a href="https://imgtu.com/i/TsivdA"><img data-src="https://s4.ax1x.com/2021/12/28/TsivdA.png" alt="TsivdA.png"></a></li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Burpsuite</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+        <tag>Burpsuite</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux中的常用命令</title>
+    <url>/2021/12/28/Linux%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><span id="more"></span>
+<p><code>ls -lh</code> 显示大小单位</p>
+<p><code>ls -lh --sort=size</code> 根据文件大小排序</p>
+<p><code>ls -lh --sort=time</code> 根据文件最后修改的时间排序</p>
+<p><code>ls -la</code> 显示所有文件，包括隐藏文件</p>
+<p><code>cd 目录</code>  进入目录</p>
+<p><code>cat 文件</code> 显示文本文件所有内容</p>
+<p><code>more 文件</code> 显示文件内容 下面有个进度条，可以一行一行翻页看</p>
+<p><code>less 文件</code> 和more命令相似 左下角不会显示进度条</p>
+<p><code>tail 文件</code> 默认显示文件最后10行内容</p>
+<p><code>tail -20 文件</code> 显示文件最后20行内容</p>
+<p><code>watch -n 2 tail -20</code> 每隔2秒tail文件最后20行信息</p>
+<p><code>rm 文件</code> 删除文件</p>
+<p><code>rm -r 目录</code> 删除目录</p>
+<p><code>cp 目标文件名 新的文件名</code>  copy文件</p>
+<p><code>cp -r 目标目录 新的目录</code>copy目录</p>
+<p><code>find / -name 文件名</code> 从根目录查找文件名称的文件</p>
+<p><code>find / -iname 文件名*</code> 不区分大小写从跟目录查找文件名的文件</p>
+<p><code>whereis 文件名</code> </p>
+<p><code>whereis -b 文件名</code> 查找文件名 2进制</p>
+<p><code>updatedb</code> 更新要搜索的数据库，一般使用<code>whereis</code>前会使用</p>
+<p><code>&gt; 文件名</code> 写入数据到文件里</p>
+<p><code>&gt;&gt; 文件名</code> 追加数据到文件里</p>
+<hr>
+<h2 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h2><p><code>top</code> 监视系统性能，当前系统时间-已启动时间-当前系统登录用户-平均负载等</p>
+<p><code>k pid(进程号)</code> 在<code>top</code> 命令下杀死进程</p>
+<p><code>ps -ef</code> 显示详细的进程信息</p>
+<p><code>ps aux</code> 同上，显示的列稍微不一样</p>
+<p><code>ps aux | grep 进程名</code> 模糊查询进程名返回进程信息</p>
+<p><code>ps -ef | grep 进程名</code> 同上</p>
+<p><code>grep 关键词 文件</code> 筛选关键词查看文件信息</p>
+<p><code>kill -9 pid</code> 强制杀死进程</p>
+<hr>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p><code>ping</code> 测试连接（<code>IMCP协议</code>）</p>
+<p><code>ifconfig</code> 查看当前网络配置信息</p>
+<p><code>ifconfig eth0 down</code> 关闭网卡，修改网卡<code>mac</code>地址时需要关闭</p>
+<p><code>ifconfig eth0 start</code> 开启网卡</p>
+<p><code>macchanger -m 00:11:11:11:11:11 eth0</code> 修改网卡<code>mac</code>地址，重启后还会变成原来的真实<code>mac</code>地址</p>
+<p><code>netstat -pantu</code>查看计算机和网络里的服务器产生的<code>tcp</code>或<code>udp</code> 的连接，<code>t</code> 代表<code>tcp</code> ，<code>u</code> 代表<code>udp</code></p>
+<p><code>netstat -pantu | egrep -v '0.0.0.0|:::'</code> 过滤 <code>0.0.0.0和:::</code> 的信息</p>
+<p><code>netstat -pantu | egrep -v '0.0.0.0|:::' awk ' {print $5}</code> </p>
+<ul>
+<li><code>awk</code> 以空格分隔数据显示</li>
+</ul>
+<p><code>netstat -pandu | egrep -v '0.0.0.0|:::' awk {print $5} | egre -v 'and|Address' cut -d ':' -f 1</code></p>
+<p><code>mount</code> 挂载远程文件夹</p>
+<p><code>mount -o loop kali.iso /media/cdrom</code> 例：挂载cd盘，之后可以cd进去</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nmap的常用命令</title>
     <url>/2021/12/26/Nmap%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ul>
@@ -69,6 +209,304 @@
       </tags>
   </entry>
   <entry>
+    <title>Redis是什么</title>
+    <url>/2021/12/28/Redis%E6%98%AF%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h2><ul>
+<li>什么是NOSQL<br>  NoSQL(NoSQL = Not Only SQL_,意即”不仅仅是SQL”,是一项全新的数据库概念,泛指非关系型的数据库  <span id="more"></span>
+</li>
+<li>为什么需要NoSQL<ul>
+<li>随着互联网的告诉崛起,网站的用户群的增加,访问量的上升,传统数据库上都开始乐性能瓶颈,web程序不再仅仅专注在功能上,同时也在追求性能.所以NoSQL数据库应运而上,具体表现为对如下三高问题的解决:<ul>
+<li>High performance - 对数据库高并发读写的需求</li>
+<li>Huge Storge - 对海量数据的高效率存储和访问的需求</li>
+<li>High Scalability &amp;&amp; High Availability - 对数据库的高可扩展性和高可用性的需求</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h2><p>Redis是用C语言开发的一个开源的高性能键值对(key-value)数据库,官方提供测试数据,50个并发执行100000个请求,读的速度是110000次/s,写的速度是81000次/s,且Redis通过提供多种键值数据类型来适应不同场景下的存储需求,目前为止Redis支持的键值数据类型如下:</p>
+<ul>
+<li>字符串类型 String</li>
+<li>散列类型 Hash     - Map&lt;String,Map&lt;String,String&gt;&gt;</li>
+<li>有序类型 List</li>
+<li>集合类型 Set</li>
+<li>有序集合类型 Sortedset</li>
+</ul>
+<hr>
+<h2 id="Redis的应用场景"><a href="#Redis的应用场景" class="headerlink" title="Redis的应用场景"></a>Redis的应用场景</h2><ul>
+<li>缓存(数据查询,短连接,新闻内容,商品内容等等)</li>
+<li>聊天室的在线好友列表</li>
+<li>任务队列(秒杀,抢购,12306等等)</li>
+<li>应用排行榜</li>
+<li>网站访问统计</li>
+<li>数据过期处理(可以精确到毫秒)</li>
+<li>分布式集群架构中的session分离</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+        <tag>开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis的数据类型</title>
+    <url>/2021/12/28/Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><p>关于key的定义,注意如下几点:</p>
+<span id="more"></span>
+<ul>
+<li>key不要太长,最好不要超过1024个字节,这不仅会消耗内存还会降低查找效率</li>
+<li>key不要太短,如果太短会降低key的可读性</li>
+<li>在项目中,key最好有一个统一的命名规范</li>
+</ul>
+<hr>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>字符串类型是Redis中最基础的数据存储类型,它在Redis中是二进制安全的,这便意味着该类型存入和获取的数据相同.在Redis中字符串类型的Value最多可以容纳的数据长度是512M.</p>
+<p>常用命令</p>
+<ul>
+<li>set key value<br>  设定key特有指定的字符串value,如果该key存在则进行覆盖操作.总是返回”OK”<br>  <a href="https://imgtu.com/i/TsAqMT"><img data-src="https://s4.ax1x.com/2021/12/28/TsAqMT.png" alt="TsAqMT.png"></a></li>
+<li>get key<br>  获取key的value,如果该ky关联的value不是String类型,redis将返回错误信息,因为get命令只能用于获取String value;如果该key不存在,返回(nil).<br>  <a href="https://imgtu.com/i/TsAxo9"><img data-src="https://s4.ax1x.com/2021/12/28/TsAxo9.png" alt="TsAxo9.png"></a></li>
+<li>del key<br>  删除指定的key<br>  <a href="https://imgtu.com/i/TsEFsO"><img data-src="https://s4.ax1x.com/2021/12/28/TsEFsO.png" alt="TsEFsO.png"></a></li>
+<li>incr key<br>  自增<br>  <a href="https://imgtu.com/i/TsEZod"><img data-src="https://s4.ax1x.com/2021/12/28/TsEZod.png" alt="TsEZod.png"></a></li>
+<li>decr num<br>  自减<br>  <a href="https://imgtu.com/i/TsEnJI"><img data-src="https://s4.ax1x.com/2021/12/28/TsEnJI.png" alt="TsEnJI.png"></a></li>
+<li>incrby key step<br>  根据 step值自增<br>  <a href="https://imgtu.com/i/TsEMSP"><img data-src="https://s4.ax1x.com/2021/12/28/TsEMSP.png" alt="TsEMSP.png"></a></li>
+<li>decrby key step<br>  根据step值自减<br>  <a href="https://imgtu.com/i/TsE1OS"><img data-src="https://s4.ax1x.com/2021/12/28/TsE1OS.png" alt="TsE1OS.png"></a></li>
+</ul>
+<hr>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>在Redis中,List类型是按照插入顺序排序的字符串链表,和数据结构中的普通链表一样,我们可以在其头部(left)和尾部(right)添加新的元素.在插入时,如果该键并不存在,Redis将为该键创建一个新的链.于此相反,如果链表中所有的元素均被溢出,那么该键也将会被从数据库中删除.List中可包含的最大元素数量是4294967295</p>
+<p>列表类型list</p>
+<ul>
+<li>lpush key values[value1 value2…]<br>  在指定的key所关联的list的头部插入所有的values,如果该key不存在,该命令在插入的之前创建一个与该key的空链表,之后再向该链表的头部插入数据.插入成功,返回元素的个数.<br>  l 左<br>  <a href="https://imgtu.com/i/TsEGwQ"><img data-src="https://s4.ax1x.com/2021/12/28/TsEGwQ.png" alt="TsEGwQ.png"></a></li>
+<li>lrange key 索引 索引<br>  遍历该键的所有数据<br>  0到-1是遍历所有<br>  <a href="https://imgtu.com/i/TsEUWq"><img data-src="https://s4.ax1x.com/2021/12/28/TsEUWq.png" alt="TsEUWq.png"></a></li>
+<li>lpop key<br>  返回并弹出指定的key关联的链表中的第一个元素，<br>  即头部元素。如果该key不存在，返回nil；若key存在，则返回链表的头部元素<br>  <a href="https://imgtu.com/i/TsEdS0"><img data-src="https://s4.ax1x.com/2021/12/28/TsEdS0.png" alt="TsEdS0.png"></a></li>
+<li>rpop key<br>  从尾部弹出元素<br>  <a href="https://imgtu.com/i/TsErmF"><img data-src="https://s4.ax1x.com/2021/12/28/TsErmF.png" alt="TsErmF.png"></a></li>
+</ul>
+<hr>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>在Redis中，我们可以将Set类型看作是没有排序的字符集合，和List类型一样，我们也可以在该类型的数据上执行添加,删除或判断某一元素是否存在等操作. 需要说明的是,这些操作的事件复杂度为O(1), 即常量时间内完成次操作. Set可包含的最大元素数量是4294967295, 和List类型不同的是, Set集合中不允许出现重复的元素.</p>
+<p>常用命令</p>
+<ul>
+<li>sadd key value<br>  向st中添加数据,如果该key的值已有则不会重复添加<br>  <a href="https://imgtu.com/i/TsEyTJ"><img data-src="https://s4.ax1x.com/2021/12/28/TsEyTJ.png" alt="TsEyTJ.png"></a><br>  <a href="https://imgtu.com/i/TsEck9"><img data-src="https://s4.ax1x.com/2021/12/28/TsEck9.png" alt="TsEck9.png"></a></li>
+<li>smembers key<br>  获取set中所有的成员<br>  <a href="https://imgtu.com/i/TsEgYR"><img data-src="https://s4.ax1x.com/2021/12/28/TsEgYR.png" alt="TsEgYR.png"></a></li>
+<li>srem key members[member1, member2]<br>  删除set中指定的成员<br>  <a href="https://imgtu.com/i/TsE2f1"><img data-src="https://s4.ax1x.com/2021/12/28/TsE2f1.png" alt="TsE2f1.png"></a></li>
+</ul>
+<hr>
+<h2 id="Sortset"><a href="#Sortset" class="headerlink" title="Sortset"></a>Sortset</h2><p>在redis中,可以保证不重复的元素,仍然可以进行排序</p>
+<p>常用命令</p>
+<ul>
+<li>zadd key values[value1,value2]<br>  向sortset中添加成员<br>  <a href="https://imgtu.com/i/TsEfl6"><img data-src="https://s4.ax1x.com/2021/12/28/TsEfl6.png" alt="TsEfl6.png"></a></li>
+<li>zrange key 索引<br>  通过索引返回有序集合<br>  <a href="https://imgtu.com/i/TsE4OO"><img data-src="https://s4.ax1x.com/2021/12/28/TsE4OO.png" alt="TsE4OO.png"></a></li>
+<li>zrem key value<br>  移除sortset中的成员<br>  <a href="https://imgtu.com/i/TsEo0e"><img data-src="https://s4.ax1x.com/2021/12/28/TsEo0e.png" alt="TsEo0e.png"></a></li>
+</ul>
+<hr>
+<h2 id="通用命令"><a href="#通用命令" class="headerlink" title="通用命令"></a>通用命令</h2><ul>
+<li>keys pattern<br>  获取所有与 pattern匹配的key,返回所有与该key匹配的keys. *表示任意一个或多个字符, ?表示一个字符<br>  <a href="https://imgtu.com/i/TsETTH"><img data-src="https://s4.ax1x.com/2021/12/28/TsETTH.png" alt="TsETTH.png"></a></li>
+<li>del key1 key2<br>  删除指定的key<br>  <a href="https://imgtu.com/i/TsEbtA"><img data-src="https://s4.ax1x.com/2021/12/28/TsEbtA.png" alt="TsEbtA.png"></a></li>
+<li>exists key<br>  判断该key是否存在,1代表存在,0代表不存在<br>  <a href="https://imgtu.com/i/TsEqfI"><img data-src="https://s4.ax1x.com/2021/12/28/TsEqfI.png" alt="TsEqfI.png"></a></li>
+<li>type key<br>  获取指定key的类型,该命令将以字符串的格式返回.<br>  返回的字符串为String,List,Set,Hash,如果key不存在返回none<br>  <a href="https://imgtu.com/i/TsEj6f"><img data-src="https://s4.ax1x.com/2021/12/28/TsEj6f.png" alt="TsEj6f.png"></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+        <tag>开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于Web</title>
+    <url>/2021/12/28/web%E6%98%AF%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="WEB的组成架构模型？"><a href="#WEB的组成架构模型？" class="headerlink" title="WEB的组成架构模型？"></a>WEB的组成架构模型？</h2><span id="more"></span>
+<p>网站源码：分脚本类型，分应用方向</p>
+<p>操作系统：windows linux</p>
+<p>中间件（搭建平台）：apache iis tomcat nginx等</p>
+<p>数据库：access mysql mssql oracle sybase db2 postsql等</p>
+<hr>
+<h2 id="架构漏洞安全测试简要介绍？"><a href="#架构漏洞安全测试简要介绍？" class="headerlink" title="架构漏洞安全测试简要介绍？"></a>架构漏洞安全测试简要介绍？</h2><hr>
+<h2 id="为什么要从WEB层面为主为首？"><a href="#为什么要从WEB层面为主为首？" class="headerlink" title="为什么要从WEB层面为主为首？"></a>为什么要从WEB层面为主为首？</h2><p>用户接触web层面最多，大部分都是从web页面入手慢慢渗透到服务器。直接从操作系统入手不太现实（大部分情况下接触不到）。</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>什么是SQL注入</title>
+    <url>/2021/12/28/%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="什么是SQL注入"><a href="#什么是SQL注入" class="headerlink" title="什么是SQL注入"></a>什么是SQL注入</h1><p>SQL注入（英语：SQL Injection），也称SQL注入或SQL注码，是发生于应用程序与数据库层的安全漏洞。简而言之，是在输入的字符串之中注入SQL指令，在设计不良的程序当中忽略了字符检查，那么这些注入进去的恶意指令就会被数据库服务器误认为是正常的SQL指令而运行，因此遭到破坏或是入侵。</p>
+<p>能改变原有SQL语句的漏洞就是SQL注入</p>
+<p>不论是学习后端开发、数据库、网络安全，SQL注入安全隐患反复被提起</p>
+]]></content>
+      <categories>
+        <category>SQL注入</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何同时运行多个tomcat</title>
+    <url>/2021/12/28/%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AAtomcat/</url>
+    <content><![CDATA[<h1 id="同时运行多个tomcat"><a href="#同时运行多个tomcat" class="headerlink" title="同时运行多个tomcat"></a>同时运行多个tomcat</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>配置好jdk</p>
+<span id="more"></span>
+<hr>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>下载tomcat到服务器中，并解压到文件夹，如<code>/home/tomcat/tomcat1</code></p>
+<p>再复制一份tomcat压缩包，解压到&nbsp;<code>/home/tomcat/tomcat2</code></p>
+<hr>
+<h2 id="第三步：配置tomcat环境变量（重点）"><a href="#第三步：配置tomcat环境变量（重点）" class="headerlink" title="第三步：配置tomcat环境变量（重点）"></a>第三步：配置tomcat环境变量（重点）</h2><p>同样是操作  <code>etc/profile</code>文件。</p>
+<p>然后在文件最后一行，即刚刚添加JDK环境变量的后边添加如下配置：</p>
+<pre><code class="Bash">#tomcat1
+export CATALINA_HOME1=/home/tomcat/tomcat8.5_1
+export CATALINA_BASE1=/home/tomcat/tomcat8.5_1
+export TOMCAT_HOME1=/home/tomcat/tomcat8.5_1
+
+#tomcat2
+export CATALINA_HOME2=/home/tomcat/tomcat8.5_2
+export CATALINA_BASE2=/home/tomcat/tomcat8.5_2
+export TOMCAT_HOME2=/home/tomcat/tomcat8.5_2
+
+#tomcat3
+export CATALINA_HOME3=/home/tomcat/tomcat8.5_3
+export CATALINA_BASE3=/home/tomcat/tomcat8.5_3
+export TOMCAT_HOME3=/home/tomcat/tomcat8.5_3
+
+#tomcat4
+export CATALINA_HOME4=/home/tomcat/tomcat8.5_4
+export CATALINA_BASE4=/home/tomcat/tomcat8.5_4
+export TOMCAT_HOME4=/home/tomcat/tomcat8.5_4
+
+#tomcat5
+export CATALINA_HOME5=/home/tomcat/tomcat8.5_5
+export CATALINA_BASE5=/home/tomcat/tomcat8.5_5
+export TOMCAT_HOME5=/home/tomcat/tomcat8.5_5
+
+#tomcat6
+export CATALINA_HOME6=/home/tomcat/tomcat8.5_6
+export CATALINA_BASE6=/home/tomcat/tomcat8.5_6
+export TOMCAT_HOME6=/home/tomcat/tomcat8.5_6
+</code></pre>
+<p><a href="https://imgtu.com/i/TskPt1"><img data-src="https://s4.ax1x.com/2021/12/28/TskPt1.png" alt="TskPt1.png"></a></p>
+<p>(注意：tomcat123456中的配置命名)</p>
+<p>加载资源</p>
+<p><code>source /etc/profile</code></p>
+<p>配置环境成功</p>
+<hr>
+<h2 id="第四步：修改tomcat123456中的server-xml文件（重点）"><a href="#第四步：修改tomcat123456中的server-xml文件（重点）" class="headerlink" title="第四步：修改tomcat123456中的server.xml文件（重点）"></a>第四步：修改tomcat123456中的server.xml文件（重点）</h2><ol>
+<li>修改server port 默认为 8005 → 修改为 8001</li>
+</ol>
+<pre><code class="Bash">&lt;Server port="8001" shutdown="SHUTDOWN"&gt;
+
+  &lt;Listener className="org.apache.catalina.startup.VersionLoggerListener" /&gt;
+
+  &lt;!-- Security listener. Documentation at /docs/config/listeners.html
+
+  --&gt;
+</code></pre>
+<ol start="2">
+<li>修改conector port HTTP/1.1  默认8080 →  修改为8081</li>
+</ol>
+<pre><code class="Bash">&lt;Connector port="80" protocol="HTTP/1.1"
+connectionTimeout="20000"
+redirectPort="8443" /&gt;
+</code></pre>
+<ol start="3">
+<li>修改connector port AJP/1.3 默认为8009 → 修改为 8010</li>
+</ol>
+<pre><code class="Bash">&lt;!-- Define an AJP 1.3 Connector on port 8009 --&gt;
+
+  &lt;Connector port="8010" protocol="AJP/1.3" redirectPort="8443" /&gt;
+</code></pre>
+<p>tomcat2：修改同理，配置<strong>不能有重复的端口号</strong></p>
+<hr>
+<h2 id="第五步：修改tomcat中的startup-sh和shutdown-sh文件-重点"><a href="#第五步：修改tomcat中的startup-sh和shutdown-sh文件-重点" class="headerlink" title="第五步：修改tomcat中的startup.sh和shutdown.sh文件(重点)"></a>第五步：修改tomcat中的startup.sh和shutdown.sh文件(重点)</h2><p>修改<code>tomcat1/bin/startup.sh</code>和<code>tomcat1/bin/shutdown.sh</code>两个文件</p>
+<ol>
+<li>startup.sh</li>
+</ol>
+<p><code>vim tomcat1/bin/startup.sh</code></p>
+<p>加入</p>
+<pre><code class="Bash">`export CATALINA_BASE=$CATALINA_BASE1`
+
+`export CATALINA_HOME=$CATALINA_HOME1`
+
+`export TOMCAT_HOME=$TOMCAT_HOME1`
+</code></pre>
+<p>ps: 为环境配置的</p>
+<hr>
+<ol start="2">
+<li>shutdown.sh</li>
+</ol>
+<p><code>vim tomcat1/bin/shutdown.sh</code></p>
+<p>加入</p>
+<pre><code class="Bash">`export CATALINA_BASE=$CATALINA_BASE1`
+
+`export CATALINA_HOME=$CATALINA_HOME1`
+
+`export TOMCAT_HOME=$TOMCAT_HOME1`
+</code></pre>
+<p>其他同理</p>
+<hr>
+<h1 id="最后：验证结果"><a href="#最后：验证结果" class="headerlink" title="最后：验证结果"></a>最后：验证结果</h1><p><a href="https://imgtu.com/i/TskA1K"><img data-src="https://s4.ax1x.com/2021/12/28/TskA1K.png" alt="TskA1K.png"></a></p>
+<p><a href="https://imgtu.com/i/TskVXD"><img data-src="https://s4.ax1x.com/2021/12/28/TskVXD.png" alt="TskVXD.png"></a></p>
+]]></content>
+      <categories>
+        <category>Tomcat</category>
+      </categories>
+      <tags>
+        <tag>开发</tag>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于后门</title>
+    <url>/2021/12/28/%E5%90%8E%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="后门"><a href="#后门" class="headerlink" title="后门"></a>后门</h1><h2 id="什么是后门？有哪些后门？"><a href="#什么是后门？有哪些后门？" class="headerlink" title="什么是后门？有哪些后门？"></a>什么是后门？有哪些后门？</h2><p>后门程序一般是指那些绕过安全性控制而获取对程序或系统访问权的程序方法。类别：网页、线程插入、扩展、C/S后门。</p>
+<h2 id="后门在安全测试中的实际意义？"><a href="#后门在安全测试中的实际意义？" class="headerlink" title="后门在安全测试中的实际意义？"></a>后门在安全测试中的实际意义？</h2><p>例如后门藏在网页上、软件内，悄无声息的进行攻击者想要的操作。</p>
+<h2 id="关于后门需要了解哪些？（玩法、免杀）"><a href="#关于后门需要了解哪些？（玩法、免杀）" class="headerlink" title="关于后门需要了解哪些？（玩法、免杀）"></a>关于后门需要了解哪些？（玩法、免杀）</h2><p>免杀，简单来讲就是绕过杀毒软件等。</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>域名</title>
+    <url>/2021/12/28/%E5%9F%9F%E5%90%8D/</url>
+    <content><![CDATA[<h1 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h1><h2 id="什么是域名？"><a href="#什么是域名？" class="headerlink" title="什么是域名？"></a>什么是域名？</h2><p>域名（英语：Domain Name），又称网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）。</p>
+<span id="more"></span>
+<p>由于IP地址具有不方便记忆并且不能显示地址组织的名称和性质等缺点，人们设计出了域名，并通过网域名称系统（DNS，Domain Name System）来将域名和IP地址相互映射，使人更方便地访问互联网，而不用去记住能够被机器直接读取的IP地址数串。</p>
+<p><a href="http://比如www.baidu.com/">比如www.baidu.com</a>，这就是一个域名，简单来说就是ip不好记，所以有了域名来方便记忆。可以联想到地址和经纬度的关系（上海 ：经度 121.48 纬度 31.22）</p>
+<hr>
+<h2 id="域名在哪里注册？"><a href="#域名在哪里注册？" class="headerlink" title="域名在哪里注册？"></a>域名在哪里注册？</h2><p>找个域名注册商的网站（比如阿里、万网），搜索想要的域名（由于国内并非所有域名都支持备案，目前提供主流可备案域名有：</p>
+<p>.com, .cn, .com.cn, .net, .top, .wang, .vip, .company, .org.cn,.ac.cn, .site, .online, .ren .store, .tech, .xyz, .club, .link, .pro, .red, .info, .biz, .ltd, .gov.cn, .mobi, .city 等。）</p>
+<p>填写域名资料。若你是以公司名义注册域名，则需要填写企业资料、联系人信息；若你是以个人名义注册，请切换到个人栏，填写个人信息。域名英文信息将会根据你填写的中文自动翻译，请核对是否有误，若有误请及时进行修改。</p>
+<p>确认域名账单。确认域名注册人信息、账单无误后，使用支付宝或微信扫码支付即可完成注册。</p>
+<p>域名实名验证。因国内法律法规要求，域名注册后需要进行实名认证，通过认证后即可正式生效。若审核有误，请及时进行修改，再次提交审核。</p>
+<p>域名备案及绑定网站。如果你需要在国内上线，则需要进行网站备案。</p>
+<p><a href="https://wanwang.aliyun.com/">https://wanwang.aliyun.com/</a></p>
+<hr>
+<h2 id="什么是二级域名、多级域名？"><a href="#什么是二级域名、多级域名？" class="headerlink" title="什么是二级域名、多级域名？"></a>什么是二级域名、多级域名？</h2><p>例如<a href="http://www.dns0755.net是dns0755.net的子域名,而dns0755.net又是net的子域名.国际顶级域名的子域名叫做二级域名./">www.dns0755.net是dns0755.net的子域名，而dns0755.net又是net的子域名。国际顶级域名的子域名叫做二级域名。</a></p>
+<p>如A.com是一级域名，A.B.com则是二级域名。一级域名较二级域名级别更高，而二级域名则是依附于一级域名下的附属分区域名，即二级域名是一级域名的细分层级。</p>
+<p>通过网址上【.】数量来判断域名层级，有多少【.】就为几级域名，如A.com是一级域名，A.B.com则是二级域名。</p>
+<p>如：<a href="http://baidu.com/">baidu.com</a> 是百度的顶级域名，<a href="http://zhidao.baidu.com/">zhidao.baidu.com</a> 是二级域名，<a href="http://zhidao.zhidao.baidu.com/">zhidao.zhidao.baidu.com</a> 是三（多）级域名，*.baidu.com 是泛域名。</p>
+<hr>
+<h2 id="域名发现对于安全测试意义？"><a href="#域名发现对于安全测试意义？" class="headerlink" title="域名发现对于安全测试意义？"></a>域名发现对于安全测试意义？</h2><p>进行渗透测试时，其主域名找不到漏洞时，就可以尝试去测试收集到的子域名，有可能测试子域名网站时会有意向不到的效果，然后可以由此横向到主网站。</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>域名</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何将你的内网端口映射到公网——frp</title>
     <url>/2021/12/27/%E5%9F%BA%E4%BA%8Efrp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
     <content><![CDATA[<h1 id="基于frp实现内网穿透"><a href="#基于frp实现内网穿透" class="headerlink" title="基于frp实现内网穿透"></a>基于frp实现内网穿透</h1><h2 id="frp下载地址"><a href="#frp下载地址" class="headerlink" title="frp下载地址"></a>frp下载地址</h2><p><a href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
@@ -80,7 +518,7 @@
 <ol>
 <li>服务端配置(frps-公网)<ul>
 <li>首先删除关于<code>frpc</code> 的所有文件</li>
-<li>然后编辑<code>frps.ini</code><br><code>vim ./frps.ini</code><br><a href="https://imgtu.com/i/TBZalT"><img src="https://s4.ax1x.com/2021/12/27/TBZalT.png" alt="TBZalT.png"></a></li>
+<li>然后编辑<code>frps.ini</code><br><code>vim ./frps.ini</code><br><a href="https://imgtu.com/i/TBZalT"><img data-src="https://s4.ax1x.com/2021/12/27/TBZalT.png" alt="TBZalT.png"></a></li>
 <li>打开防火墙7000端口（c/s通信）和6000端口（映射的内网 22端口）</li>
 </ul>
 </li>
@@ -240,10 +678,10 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 </li>
 <li>Metasploitable2<ul>
 <li><a href="http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip">http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip</a></li>
-<li><code>msfadmin</code> 默认账号和密码<br>  <a href="https://imgtu.com/i/TBnwX8"><img src="https://s4.ax1x.com/2021/12/27/TBnwX8.png" alt="TBnwX8.png"></a></li>
+<li><code>msfadmin</code> 默认账号和密码<br>  <a href="https://imgtu.com/i/TBnwX8"><img data-src="https://s4.ax1x.com/2021/12/27/TBnwX8.png" alt="TBnwX8.png"></a></li>
 <li>问题: <code>/var/www/mutillidae/config.inc</code><ul>
 <li><code>sudo vim /var/www/mutillidae/config.inc</code></li>
-<li><code>dbname=owasp10</code> 修改数据库连接<br>  <a href="https://imgtu.com/i/TBnETJ"><img src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></a></li>
+<li><code>dbname=owasp10</code> 修改数据库连接<br>  <a href="https://imgtu.com/i/TBnETJ"><img data-src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></a></li>
 </ul>
 </li>
 </ul>
@@ -256,19 +694,19 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 <hr>
 <h2 id="模拟真实网络"><a href="#模拟真实网络" class="headerlink" title="模拟真实网络"></a>模拟真实网络</h2><ul>
 <li>vm添加3块虚拟网卡</li>
-<li>vm 添加两个虚拟网络（仅主机）不启用dhcp<br>  <a href="https://imgtu.com/i/TBnAw4"><img src="https://s4.ax1x.com/2021/12/27/TBnAw4.png" alt="TBnAw4.png"></a></li>
+<li>vm 添加两个虚拟网络（仅主机）不启用dhcp<br>  <a href="https://imgtu.com/i/TBnAw4"><img data-src="https://s4.ax1x.com/2021/12/27/TBnAw4.png" alt="TBnAw4.png"></a></li>
 <li><code>M0n0wall</code> 防火墙<ul>
-<li><a href="http://m0n0.ch/wall/downloads.php">http://m0n0.ch/wall/downloads.php</a><br>  <a href="https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso">https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso</a><br>  <a href="https://imgtu.com/i/TBneYR"><img src="https://s4.ax1x.com/2021/12/27/TBneYR.png" alt="TBneYR.png"></a></li>
+<li><a href="http://m0n0.ch/wall/downloads.php">http://m0n0.ch/wall/downloads.php</a><br>  <a href="https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso">https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso</a><br>  <a href="https://imgtu.com/i/TBneYR"><img data-src="https://s4.ax1x.com/2021/12/27/TBneYR.png" alt="TBneYR.png"></a></li>
 <li>体积非常小，甚至可以装在<code>arm</code>架构的机器里当作企业的真实防火墙</li>
 <li>学习研究可以装在树莓里</li>
-<li>安装<br>  vm 网络设置如图 启用前3块<br>  <a href="https://imgtu.com/i/TBnkmF"><img src="https://s4.ax1x.com/2021/12/27/TBnkmF.png" alt="TBnkmF.png"></a><br>  <a href="https://imgtu.com/i/TBnPyT"><img src="https://s4.ax1x.com/2021/12/27/TBnPyT.png" alt="TBnPyT.png"></a><br>  <a href="https://imgtu.com/i/TBnZk9"><img src="https://s4.ax1x.com/2021/12/27/TBnZk9.png" alt="TBnZk9.png"></a>  <a href="https://imgtu.com/i/TBnmf1"><img src="https://s4.ax1x.com/2021/12/27/TBnmf1.png" alt="TBnmf1.png"></a><br>  第二次断开硬盘<br>  <a href="https://imgtu.com/i/TBnuSx"><img src="https://s4.ax1x.com/2021/12/27/TBnuSx.png" alt="TBnuSx.png"></a>  <a href="https://imgtu.com/i/TBnKl6"><img src="https://s4.ax1x.com/2021/12/27/TBnKl6.png" alt="TBnKl6.png"></a><br>  <a href="https://imgtu.com/i/TBnM6K"><img src="https://s4.ax1x.com/2021/12/27/TBnM6K.png" alt="TBnM6K.png"></a>  <a href="https://imgtu.com/i/TBn1mD"><img src="https://s4.ax1x.com/2021/12/27/TBn1mD.png" alt="TBn1mD.png"></a><br>  设置 <code>LAN</code> 口，<code>WAN</code> 口<br>  <a href="https://imgtu.com/i/TBnQOO"><img src="https://s4.ax1x.com/2021/12/27/TBnQOO.png" alt="TBnQOO.png"></a><br>  <a href="https://imgtu.com/i/TBn30e"><img src="https://s4.ax1x.com/2021/12/27/TBn30e.png" alt="TBn30e.png"></a><br>  配置好后 y 自动重启<br>  配置 ip 根据  vm虚拟网络设置配置<br>  <a href="https://imgtu.com/i/TBnJkd"><img src="https://s4.ax1x.com/2021/12/27/TBnJkd.png" alt="TBnJkd.png"></a><br>  接下来重新设置<code>web</code> 登录的密码<br>  <a href="https://imgtu.com/i/TBnYtA"><img src="https://s4.ax1x.com/2021/12/27/TBnYtA.png" alt="TBnYtA.png"></a><br>  配置好 打开浏览器访问<br>  <a href="https://imgtu.com/i/TBn8TH"><img src="https://s4.ax1x.com/2021/12/27/TBn8TH.png" alt="TBn8TH.png"></a><br>  登陆进去首先配置<code>OPT1</code> 接口<br>  IP地址是根据，第二个网卡来配置的<br>  保存<br>  <a href="https://imgtu.com/i/TBntfI"><img src="https://s4.ax1x.com/2021/12/27/TBntfI.png" alt="TBntfI.png"></a><br>  配置防火墙 规则<br>  <a href="https://imgtu.com/i/TBnUpt"><img src="https://s4.ax1x.com/2021/12/27/TBnUpt.md.png" alt="TBnUpt.md.png"></a>  <a href="https://imgtu.com/i/TBna1P"><img src="https://s4.ax1x.com/2021/12/27/TBna1P.png" alt="TBna1P.png"></a><br>  配置<code>WAN</code> 口<pre><code>  [![TBnd6f.png](https://s4.ax1x.com/2021/12/27/TBnd6f.png)](https://imgtu.com/i/TBnd6f)
+<li>安装<br>  vm 网络设置如图 启用前3块<br>  <a href="https://imgtu.com/i/TBnkmF"><img data-src="https://s4.ax1x.com/2021/12/27/TBnkmF.png" alt="TBnkmF.png"></a><br>  <a href="https://imgtu.com/i/TBnPyT"><img data-src="https://s4.ax1x.com/2021/12/27/TBnPyT.png" alt="TBnPyT.png"></a><br>  <a href="https://imgtu.com/i/TBnZk9"><img data-src="https://s4.ax1x.com/2021/12/27/TBnZk9.png" alt="TBnZk9.png"></a>  <a href="https://imgtu.com/i/TBnmf1"><img data-src="https://s4.ax1x.com/2021/12/27/TBnmf1.png" alt="TBnmf1.png"></a><br>  第二次断开硬盘<br>  <a href="https://imgtu.com/i/TBnuSx"><img data-src="https://s4.ax1x.com/2021/12/27/TBnuSx.png" alt="TBnuSx.png"></a>  <a href="https://imgtu.com/i/TBnKl6"><img data-src="https://s4.ax1x.com/2021/12/27/TBnKl6.png" alt="TBnKl6.png"></a><br>  <a href="https://imgtu.com/i/TBnM6K"><img data-src="https://s4.ax1x.com/2021/12/27/TBnM6K.png" alt="TBnM6K.png"></a>  <a href="https://imgtu.com/i/TBn1mD"><img data-src="https://s4.ax1x.com/2021/12/27/TBn1mD.png" alt="TBn1mD.png"></a><br>  设置 <code>LAN</code> 口，<code>WAN</code> 口<br>  <a href="https://imgtu.com/i/TBnQOO"><img data-src="https://s4.ax1x.com/2021/12/27/TBnQOO.png" alt="TBnQOO.png"></a><br>  <a href="https://imgtu.com/i/TBn30e"><img data-src="https://s4.ax1x.com/2021/12/27/TBn30e.png" alt="TBn30e.png"></a><br>  配置好后 y 自动重启<br>  配置 ip 根据  vm虚拟网络设置配置<br>  <a href="https://imgtu.com/i/TBnJkd"><img data-src="https://s4.ax1x.com/2021/12/27/TBnJkd.png" alt="TBnJkd.png"></a><br>  接下来重新设置<code>web</code> 登录的密码<br>  <a href="https://imgtu.com/i/TBnYtA"><img data-src="https://s4.ax1x.com/2021/12/27/TBnYtA.png" alt="TBnYtA.png"></a><br>  配置好 打开浏览器访问<br>  <a href="https://imgtu.com/i/TBn8TH"><img data-src="https://s4.ax1x.com/2021/12/27/TBn8TH.png" alt="TBn8TH.png"></a><br>  登陆进去首先配置<code>OPT1</code> 接口<br>  IP地址是根据，第二个网卡来配置的<br>  保存<br>  <a href="https://imgtu.com/i/TBntfI"><img data-src="https://s4.ax1x.com/2021/12/27/TBntfI.png" alt="TBntfI.png"></a><br>  配置防火墙 规则<br>  <a href="https://imgtu.com/i/TBnUpt"><img data-src="https://s4.ax1x.com/2021/12/27/TBnUpt.md.png" alt="TBnUpt.md.png"></a>  <a href="https://imgtu.com/i/TBna1P"><img data-src="https://s4.ax1x.com/2021/12/27/TBna1P.png" alt="TBna1P.png"></a><br>  配置<code>WAN</code> 口<pre><code>  [![TBnd6f.png](https://s4.ax1x.com/2021/12/27/TBnd6f.png)](https://imgtu.com/i/TBnd6f)
 </code></pre>
 </li>
 </ul>
 </li>
 <li>背靠背防火墙<ul>
 <li><code>Pfsense</code> <ul>
-<li><a href="https://pfsense.org/">https://pfsense.org/</a><br><a href="https://imgtu.com/i/TBnD0g"><img src="https://s4.ax1x.com/2021/12/27/TBnD0g.png" alt="TBnD0g.png"></a></li>
+<li><a href="https://pfsense.org/">https://pfsense.org/</a><br><a href="https://imgtu.com/i/TBnD0g"><img data-src="https://s4.ax1x.com/2021/12/27/TBnD0g.png" alt="TBnD0g.png"></a></li>
 <li>安装和 <code>m0n0wall</code> 类似</li>
 <li>属于高安全防护的企业防火墙架构</li>
 </ul>
@@ -360,6 +798,24 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
       </categories>
       <tags>
         <tag>二进制安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于脚本语言</title>
+    <url>/2021/12/28/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[<h1 id="脚本语言"><a href="#脚本语言" class="headerlink" title="脚本语言"></a>脚本语言</h1><h2 id="常见的脚本语言类型有哪些？"><a href="#常见的脚本语言类型有哪些？" class="headerlink" title="常见的脚本语言类型有哪些？"></a>常见的脚本语言类型有哪些？</h2><p>asp php aspx jsp javaweb pl py cgi等</p>
+<span id="more"></span>
+<p>脚本语言的特点是语法简单，一般以文本形式保存，并且不需要编译成目标程序，在调用的时候直接解释。这可以当做是脚本语言的判断标准，比如说JavaScript，你只需要用记事本新建一个Html文件，在里面加上一段脚本就可以了，在浏览器打开Html文件时自然会调用JS脚本。</p>
+<hr>
+<h2 id="不同脚本类型与安全漏洞的关系？"><a href="#不同脚本类型与安全漏洞的关系？" class="headerlink" title="不同脚本类型与安全漏洞的关系？"></a>不同脚本类型与安全漏洞的关系？</h2><p>不同的脚本语言的编写规则不一样，程序产生的漏洞自然也不一样（代码审计）。</p>
+<hr>
+<h2 id="挖掘漏洞代码审计与脚本类型的关系？"><a href="#挖掘漏洞代码审计与脚本类型的关系？" class="headerlink" title="挖掘漏洞代码审计与脚本类型的关系？"></a>挖掘漏洞代码审计与脚本类型的关系？</h2><p>同上</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
       </tags>
   </entry>
 </search>
