@@ -966,6 +966,26 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
       </tags>
   </entry>
   <entry>
+    <title>如何抓取手机的web数据包</title>
+    <url>/2021/12/29/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E6%89%8B%E6%9C%BAweb%E6%95%B0%E6%8D%AE%E5%8C%85/</url>
+    <content><![CDATA[<h1 id="如何抓取手机的web数据包"><a href="#如何抓取手机的web数据包" class="headerlink" title="如何抓取手机的web数据包"></a>如何抓取手机的web数据包</h1><ol>
+<li>首先使用ipconfig命令查看自己的内网ip地址<br> <img data-src="https://s4.ax1x.com/2021/12/29/TccHtP.png" alt="TccHtP.png">]</li>
+<li>在手机模拟器中找到WLAN的默认wifi长按选择<code>修改网络</code><br> <img data-src="https://s4.ax1x.com/2021/12/29/TcgKtx.png" alt="TcgKtx.png">] <span id="more"></span></li>
+<li>代理服务器主机名填写自己的内网ip地址<br> 代理服务器端口填写 Burpsuite设置的监听端口<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcg3cD.png" alt="Tcg3cD.png">]</li>
+<li>Burpsuite的<code>proxy</code>模块修改成和上面一致<br> <img data-src="https://s4.ax1x.com/2021/12/29/TcgaNt.png" alt="TcgaNt.png">]<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcgrjg.png" alt="Tcgrjg.png">]</li>
+<li>用模拟器随机访问一些web页面<br> Burpsuite能够抓取到数据包，配置成功<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcg6Bj.png" alt="Tcg6Bj.png"></li>
+</ol>
+<p>手机同理</p>
+]]></content>
+      <categories>
+        <category>Burpsuite</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>Burpsuite</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>渗透的实验环境搭建</title>
     <url>/2021/12/27/%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ul>
