@@ -635,6 +635,44 @@ mockJson = process.mainModule.require("child_process").execSync("whoami").toStri
       </tags>
   </entry>
   <entry>
+    <title>使用wafw00f探测网站waf</title>
+    <url>/2022/01/07/wafw00f/</url>
+    <content><![CDATA[<h1 id="wafw00f"><a href="#wafw00f" class="headerlink" title="wafw00f"></a>wafw00f</h1><h4 id="Web应用程序防火墙指纹识别工具"><a href="#Web应用程序防火墙指纹识别工具" class="headerlink" title="Web应用程序防火墙指纹识别工具"></a>Web应用程序防火墙指纹识别工具</h4><p><strong>原理：</strong></p>
+<ul>
+<li>发送_正常的_&nbsp;HTTP请求并分析响应；这确定了许多WAF解决方案。</li>
+<li>如果不成功，则发送多个（可能是恶意的）HTTP请求，并使用简单的逻辑来取代它是其中WAF。</li>
+<li>如果还是不成功，则分析先前回复的响应，并使用另一种简单算法来猜测WAF或安全解决方案是否正在积极响应我们的攻击。<span id="more"></span></li>
+</ul>
+<p><strong>安装：</strong></p>
+<p>github地址：<a href="https://github.com/EnableSecurity/wafw00f">https://github.com/EnableSecurity/wafw00f</a></p>
+<p>官方使用文档：<a href="https://github.com/enablesecurity/wafw00f/wiki">https://github.com/enablesecurity/wafw00f/wiki</a></p>
+<p>安装环境：python3环境 —&gt;使用 pip install&nbsp;wafw00f 进行安装</p>
+<p>安装成功后目录：python安装目录中的Lib\site-packages\wafw00f—&gt;例如：C:\Python37\Lib\site-packages\wafw00f</p>
+<p>验证：cd到C:\Python37\Lib\site-packages\wafw00f目录中，输入python <a href="http://main.py/">main.py</a>&nbsp; 如下图说明安装成功</p>
+<p><img data-src="https://s4.ax1x.com/2022/01/07/793jSO.png" alt="793jSO.png"></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>windows命令窗口中cd到wafw00f目录中：</p>
+<p>查看wafw00f能探测那些防火墙：</p>
+<p>执行：<code>python main.py  -l</code> 如图列出防火墙</p>
+<p><img data-src="https://s4.ax1x.com/2022/01/07/793vlD.png" alt="793vlD.png"></p>
+<h2 id="探测web站是否存在waf"><a href="#探测web站是否存在waf" class="headerlink" title="探测web站是否存在waf"></a>探测web站是否存在waf</h2><p>例1：<a href="https://example.org/">https://example.org</a>&nbsp; &nbsp; （该网站存在waf）</p>
+<p>执行：<code>python main.py&nbsp; https://example.org</code></p>
+<p><img data-src="https://s4.ax1x.com/2022/01/07/793x6e.png" alt="793x6e.png"></p>
+<p> 例2：<a href="https://www.baidu.com/">https://www.baidu.com</a>&nbsp; (百度肯定有waf）</p>
+<p><img data-src="https://s4.ax1x.com/2022/01/07/798pmd.png" alt="798pmd.png"></p>
+<p> 例3：<a href="http://192.168.10.7:85/pikachu-master/vul/rce/rce_ping.php">http://192.168.10.7:85/pikachu-master/vul/rce/rce_ping.php</a>&nbsp; &nbsp;（不存在waf）</p>
+<p><img data-src="https://s4.ax1x.com/2022/01/07/798CTI.png" alt="798CTI.png"></p>
+<h2 id="Kali"><a href="#Kali" class="headerlink" title="Kali"></a>Kali</h2><p>该工具集成在kali中，可以直接使用<code>wafw00f ip</code> 命令进行探测</p>
+<p><img data-src="https://s4.ax1x.com/2022/01/07/798ikt.png" alt="798ikt.png"></p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>wafw00f</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于Web</title>
     <url>/2021/12/28/web%E6%98%AF%E4%BB%80%E4%B9%88/</url>
     <content><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="WEB的组成架构模型？"><a href="#WEB的组成架构模型？" class="headerlink" title="WEB的组成架构模型？"></a>WEB的组成架构模型？</h2><p>网站源码：分脚本类型，分应用方向</p>
@@ -673,10 +711,16 @@ mockJson = process.mainModule.require("child_process").execSync("whoami").toStri
   </entry>
   <entry>
     <title>免责声明</title>
-    <url>/2022/01/05/%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E/</url>
+    <url>/2100/01/01/%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E/</url>
     <content><![CDATA[<p>本博客教学内容仅供学习交流使用，请勿用于违法犯罪行为。</p>
 <p>不得用于从事违反中国人民共和国相关法律所禁止的活动，由此导致的任何法律问题与博主和开发人员无关。</p>
 ]]></content>
+      <categories>
+        <category>免责声明</category>
+      </categories>
+      <tags>
+        <tag>免责声明</tag>
+      </tags>
   </entry>
   <entry>
     <title>关于端口扫描</title>
