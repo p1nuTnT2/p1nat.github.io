@@ -24,25 +24,28 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.p1nat.xyz","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="p1nat的技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="P1nat&#39;s blog">
-<meta property="og:url" content="http://blog.p1nat.xyz/tags/Mysql/index.html">
+<meta name="description" content="粘贴板命令注入攻击1. 前言关于 Web 安全的「粘贴板安全」，能意识到安全风险的人并不多。大多数人认为这只是隐私安全，最多泄露当前复制的内容而已。或者就是用于一些小花招，例如自动复制淘口令然后唤起手淘这种恶意行为。 事实上，粘贴板安全是非常重要的 —— 尤其是我们这些经常上网查资料的人。稍有不慎，系统都会被入侵！ 2. 所见非所得有没有想过，当你选中一段文字复制后，粘贴出来的却是不同的内容？ 你">
+<meta property="og:type" content="article">
+<meta property="og:title" content="粘贴板命令注入攻击">
+<meta property="og:url" content="http://blog.p1nat.xyz/2022/01/24/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="P1nat&#39;s blog">
-<meta property="og:description" content="p1nat的技术博客">
+<meta property="og:description" content="粘贴板命令注入攻击1. 前言关于 Web 安全的「粘贴板安全」，能意识到安全风险的人并不多。大多数人认为这只是隐私安全，最多泄露当前复制的内容而已。或者就是用于一些小花招，例如自动复制淘口令然后唤起手淘这种恶意行为。 事实上，粘贴板安全是非常重要的 —— 尤其是我们这些经常上网查资料的人。稍有不慎，系统都会被入侵！ 2. 所见非所得有没有想过，当你选中一段文字复制后，粘贴出来的却是不同的内容？ 你">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-24T05:31:03.430Z">
 <meta property="article:author" content="p1nat">
+<meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://blog.p1nat.xyz/tags/Mysql/">
+<link rel="canonical" href="http://blog.p1nat.xyz/2022/01/24/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/Mysql/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.p1nat.xyz/2022/01/24/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/","path":"2022/01/24/粘贴板命令注入攻击/","title":"粘贴板命令注入攻击"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: Mysql | P1nat's blog</title>
+<title>粘贴板命令注入攻击 | P1nat's blog</title>
   
 
 
@@ -140,7 +143,7 @@
 
   <aside class="sidebar">
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439125289&auto=0&height=66"></iframe>
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -153,6 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">1.</span> <span class="nav-text">粘贴板命令注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%89%80%E8%A7%81%E9%9D%9E%E6%89%80%E5%BE%97"><span class="nav-number">1.2.</span> <span class="nav-text">2. 所见非所得</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%B2%98%E8%B4%B4%E5%8D%B3%E8%BF%90%E8%A1%8C"><span class="nav-number">1.3.</span> <span class="nav-text">3. 粘贴即运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%9A%90%E8%94%BD%E6%89%A7%E8%A1%8C"><span class="nav-number">1.4.</span> <span class="nav-text">4. 隐蔽执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BB%93%E8%AE%BA"><span class="nav-number">1.5.</span> <span class="nav-text">5. 结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%BC%94%E7%A4%BA"><span class="nav-number">1.6.</span> <span class="nav-text">6. 演示</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -247,51 +251,250 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">Mysql
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.p1nat.xyz/2022/01/24/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/upload/author.jpg">
+      <meta itemprop="name" content="p1nat">
+      <meta itemprop="description" content="p1nat的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="P1nat's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          粘贴板命令注入攻击<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="创建时间：2022-01-24 00:00:00 / 修改时间：13:31:03" itemprop="dateCreated datePublished" datetime="2022-01-24T00:00:00+08:00">2022-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">网络安全</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/01/24/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/" class="post-meta-item leancloud_visitors" data-flag-title="粘贴板命令注入攻击" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="粘贴板命令注入攻击"><a href="#粘贴板命令注入攻击" class="headerlink" title="粘贴板命令注入攻击"></a>粘贴板命令注入攻击</h1><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>关于 Web 安全的「粘贴板安全」，能意识到安全风险的人并不多。大多数人认为这只是隐私安全，最多泄露当前复制的内容而已。或者就是用于一些小花招，例如自动复制淘口令然后唤起手淘这种恶意行为。</p>
+<p>事实上，粘贴板安全是非常重要的 —— 尤其是我们这些经常上网查资料的人。稍有不慎，系统都会被入侵！</p>
+<h2 id="2-所见非所得"><a href="#2-所见非所得" class="headerlink" title="2. 所见非所得"></a>2. 所见非所得</h2><p>有没有想过，当你选中一段文字复制后，粘贴出来的却是不同的内容？</p>
+<p>你肯定不希望这样，但你一定遇到过。比如复制某帖子的时候，末尾会加上「出自作者 XXX」这种烦人的内容。</p>
+<p>从技术上说，实现这种效果很容易。但是，你有没有从安全角度考虑过这个问题？</p>
+<p>比如，你从 Stack Overflow 上搜到的答案是 <code>ping google.com</code>，一条人畜无害的命令，结果粘贴出来的却是 <code>sudo rm -rf /</code>，你看都没看就敲下了回车。。。</p>
+<p>也许你会说，正规的网站怎么可能会开这种玩笑。但是，你能保证网站不出现 XSS 吗？</p>
+<p>也许你会说，我是一个仔细的人，命令粘贴后都会检查下再运行。但是，这仍然晚了。。。</p>
+<h2 id="3-粘贴即运行"><a href="#3-粘贴即运行" class="headerlink" title="3. 粘贴即运行"></a>3. 粘贴即运行</h2><p>众所周知，粘贴多行命令时，Shell 会自动运行换行符前面的。例如：</p>
+<pre><code class="Bash">echo 1
+
+echo 2
+</code></pre>
+<p>当你将其粘贴到终端后，echo 1 已自动运行，敲下回车只是运行 echo 2 而已。</p>
+<p>因此 XSS 完全可以将恶意命令放在第一行。你一粘贴，它就自动执行了！</p>
+<p>以后你还敢从网上随意复制粘贴命令吗？</p>
+<p>也许你在想，发现破绽后马上 ctrl c 来得及吗。来不及了，恶意命令完全可在后台执行，等你找到的时候说不定木马已经安装好了。</p>
+<p>甚至，你可能根本都没发现破绽。。。</p>
+<h2 id="4-隐蔽执行"><a href="#4-隐蔽执行" class="headerlink" title="4. 隐蔽执行"></a>4. 隐蔽执行</h2><p>为了让恶意命令不留下痕迹，还可以在运行后再 clear。如果终端之前没内容，你只是觉得屏幕好像闪了一下。如果之前有内容，现在一粘贴突然变没了，也许你会觉得奇怪，但你会不会深究？</p>
+<p>也许你会调出上一个命令，或通过 history 看究竟执行了什么。但是，恶意命令完全可以删掉历史记录，让你无从查证。</p>
+<p>更进一步，恶意程序可将粘贴板修改成正常内容，你去其他地方粘贴看到的仍是预期内容。甚至，恶意程序还可以给网页里的 XSS 发送命令，让它以后不再劫持你了，让你一时半会都复现不出来！（当然，粘贴到远程服务器 ssh 的话无视这一步）</p>
+<h2 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h2><p>从网上复制粘贴命令风险很大。最好先粘贴到记事本里检查一下，然后再粘贴到终端里运行。</p>
+<h2 id="6-演示"><a href="#6-演示" class="headerlink" title="6. 演示"></a>6. 演示</h2><p><a target="_blank" rel="noopener" href="https://www.etherdream.com/funnyscript/clipboard-hijack/">https://www.etherdream.com/funnyscript/clipboard-hijack/</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-01-05T00:00:00+08:00"
-              content="2022-01-05">
-          01-05
-        </time>
-      </div>
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/12/28/关于端口扫描/" rel="bookmark">关于端口扫描</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/12/28/DNS/" rel="bookmark">关于DNS</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2022/01/05/Mysql 身份认证绕过漏洞（CVE-2/" rel="bookmark">Mysql 身份认证绕过漏洞（CVE-2012-2122）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/12/28/NetCat的几种用法/" rel="bookmark">Netcat的几种常用方式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/12/26/Nmap常用命令/" rel="bookmark">Nmap的常用命令</a></div>
+    </li>
+  </ul>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/01/05/Mysql%20%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2/" itemprop="url">
-            <span itemprop="name">Mysql 身份认证绕过漏洞（CVE-2012-2122）</span>
-          </a>
-      </div>
+    <!--xiexie -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
 
       
-    </header>
-  </article>
+     </div>	
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>读后有收获可以请作者喝咖啡~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/upload/wechatpay.jpg" alt="p1nat 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/upload/alipay.jpg" alt="p1nat 支付宝">
+        <span>支付宝</span>
+      </div>
 
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>p1nat
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.p1nat.xyz/2022/01/24/%E7%B2%98%E8%B4%B4%E6%9D%BF%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/" title="粘贴板命令注入攻击">http://blog.p1nat.xyz/2022/01/24/粘贴板命令注入攻击/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/upload/wechat_channel.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="tag"><i class="fa fa-tag"></i> 网络安全</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wpac-rating-container">
+      <div id="wpac-rating"></div>
     </div>
   </div>
-  
-  
-  
 
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/19/Weblogic%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%EF%BC%88CV/" rel="prev" title="Weblogic 任意文件上传漏洞（CVE-2018-2894）">
+                  <i class="fa fa-chevron-left"></i> Weblogic 任意文件上传漏洞（CVE-2018-2894）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2100/01/01/%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E/" rel="next" title="免责声明">
+                  免责声明 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NTA0My8zMTUxMQ=="></div>
 </div>
   </main>
 
